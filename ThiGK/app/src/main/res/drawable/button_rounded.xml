@@ -1,0 +1,25 @@
+<!-- res/drawable/button_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Trạng thái nhấn giữ -->
+    <item android:state_pressed="true">
+        <shape>
+            <gradient
+                android:startColor="#FFFFFF"
+                android:endColor="#FF6347"
+                android:angle="45"/>
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+
+    <!-- Trạng thái bình thường -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#B2E1A3"
+                android:endColor="#A4D7E1"
+                android:angle="45"
+                />
+            <corners android:radius="30dp" />
+        </shape>
+    </item>
+</selector>
