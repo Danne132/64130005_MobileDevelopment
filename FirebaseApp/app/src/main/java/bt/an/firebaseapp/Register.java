@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +27,7 @@ public class Register extends AppCompatActivity {
     TextInputEditText txtEmail, txtPass;
     Button btnRegister;
     FirebaseAuth mAuth;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +37,11 @@ public class Register extends AppCompatActivity {
         txtPass = findViewById(R.id.pass);
         btnRegister = findViewById(R.id.btnLogin);
         mAuth = FirebaseAuth.getInstance();
+        progressBar = findViewById(R.id.processBar);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 String email, pass;
                 email = String.valueOf(txtEmail.getText());
                 pass = String.valueOf(txtPass.getText());
@@ -54,6 +58,7 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    progressBar.setVisibility(View.GONE);
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(Register.this, "createUserWithEmail:success", Toast.LENGTH_LONG).show();
 //                                    Log.d(TAG, "createUserWithEmail:success");
