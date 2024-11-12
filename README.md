@@ -9,8 +9,9 @@
 * [D AN Hoàng](https://www.facebook.com/hoangduyan2004)
 ## Kết quả một số bài tập đã làm
 #### 1. Bài tập BMI
-- Kết quả bài tập:
-![image](https://github.com/user-attachments/assets/dedf3bad-1caa-46dc-82b7-4fd0d45dbbe3)
+|Hình ảnh khi chạy                                                                        |Hình ảnh kết quả tính                                          |
+|:----------------------------------------------------------------------------------------|:--------------------------------------------------------------|
+|![image](https://github.com/user-attachments/assets/9ead3f2a-934f-4ba9-95ac-4a678c7132c9)|![image](https://github.com/user-attachments/assets/dedf3bad-1caa-46dc-82b7-4fd0d45dbbe3)|
 #### 2. Bài tập ListView
 |Hình ảnh khi listview|Hình ảnh lúc tìm|
 |:----------------------------------------------------------------------------------------|:--------------------------------------------------------------|
