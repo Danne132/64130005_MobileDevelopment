@@ -1,11 +1,13 @@
 package bt.an.firebaseapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Register extends AppCompatActivity {
 
     TextInputEditText txtEmail, txtPass;
+    TextView txtLogin;
     Button btnRegister;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
@@ -38,6 +41,15 @@ public class Register extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnLogin);
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.processBar);
+        txtLogin = findViewById(R.id.txtLog);
+        txtLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
