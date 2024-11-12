@@ -74,6 +74,9 @@ public class Register extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(Register.this, "createUserWithEmail:success", Toast.LENGTH_LONG).show();
 //                                    Log.d(TAG, "createUserWithEmail:success");
+                                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                                    startActivity(intent);
+                                    finish();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                 } else {
                                     // If sign in fails, display a message to the user.

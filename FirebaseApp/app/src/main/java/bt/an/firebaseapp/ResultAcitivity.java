@@ -2,6 +2,7 @@ package bt.an.firebaseapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.ktx.Firebase;
 
 public class ResultAcitivity extends AppCompatActivity {
 
@@ -38,6 +40,14 @@ public class ResultAcitivity extends AppCompatActivity {
         else{
             txtInfor.setText(user.getEmail());
         }
-        btnLogOut.setOnClickListener();
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
