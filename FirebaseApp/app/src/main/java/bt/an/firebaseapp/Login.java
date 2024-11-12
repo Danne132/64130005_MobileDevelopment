@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
         if(currentUser != null){
             Toast.makeText(Login.this, "Login successful",Toast.LENGTH_LONG).show();
             FirebaseUser user = mAuth.getCurrentUser();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ResultAcitivity.class);
             startActivity(intent);
             finish();
         }
@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(Login.this, "Login successful",Toast.LENGTH_LONG).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), ResultAcitivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
