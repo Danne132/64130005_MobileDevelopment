@@ -20,10 +20,9 @@ public class SplashAcitvity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Chuyển sang MainActivity (hoặc Activity kế tiếp)
                 Intent intent = new Intent(SplashAcitvity.this, IntroActivity.class);
                 startActivity(intent);
-                finish(); // Đóng SplashActivity sau khi chuyển đến MainActivity
+                finish();
             }
         }, 2000);
     }
