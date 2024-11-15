@@ -27,29 +27,73 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/ContentStyle"
-            android:text="Areader rất vui khi với sự có mặt của bạn, hãy đăng nhập lại tài khoản của mình nhé!"
+            android:text="Areader rất vui với sự có mặt của bạn, hãy đăng nhập lại tài khoản của mình nhé!"
             app:layout_constraintTop_toBottomOf="@+id/titleSignIn"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="10dp"
             />
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputEmailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/introSignIn"
             android:layout_marginTop="20dp"
             app:hintAnimationEnabled="false"
             app:hintEnabled="false"
+            android:background="@drawable/input_border"
+            android:paddingHorizontal="20dp"
             >
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputEmail"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input_border"
-                style="@style/InputStyle"
-                android:textColorHint="@color/content_color"
-                android:hint="Email"
-            
-                />
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/envelope" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/InputStyle"
+                    android:textColorHint="@color/content_color"
+                    android:hint="Email"
+                    />
+            </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputPassLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/inputEmailLayout"
+            android:layout_marginTop="20dp"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false"
+            android:background="@drawable/input_border"
+            android:paddingHorizontal="20dp"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/padlock" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/InputStyle"
+                    android:textColorHint="@color/content_color"
+                    android:hint="Mật khẩu"
+                    />
+            </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
