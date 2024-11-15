@@ -21,7 +21,7 @@ public class SplashAcitvity extends AppCompatActivity {
             @Override
             public void run() {
                 // Chuyển sang MainActivity (hoặc Activity kế tiếp)
-                Intent intent = new Intent(SplashAcitvity.this, MainActivity.class);
+                Intent intent = new Intent(SplashAcitvity.this, IntroActivity.class);
                 startActivity(intent);
                 finish(); // Đóng SplashActivity sau khi chuyển đến MainActivity
             }
