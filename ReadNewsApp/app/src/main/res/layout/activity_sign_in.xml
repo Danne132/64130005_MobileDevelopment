@@ -6,5 +6,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignInActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="100dp"
+        android:paddingTop="70dp"
+        android:background="@color/white">
 
+        <TextView
+            android:id="@+id/titleSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TitleStyle"
+            android:text="Chào bạn 😍"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/introSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ContentStyle"
+            android:text="Areader rất vui khi với sự có mặt của bạn, hãy đăng nhập lại tài khoản của mình nhé!"
+            app:layout_constraintTop_toBottomOf="@+id/titleSignIn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="10dp"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/introSignIn"
+            android:layout_marginTop="20dp"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_border"
+                style="@style/InputStyle"
+                android:textColorHint="@color/content_color"
+                android:hint="Email"
+            
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
