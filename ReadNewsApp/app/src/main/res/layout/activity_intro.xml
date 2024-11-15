@@ -11,15 +11,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="20dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="30dp"
         style="">
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/ButtonSign"
+            app:backgroundTint="@null"
             android:text="Bắt đầu"
             android:padding="20dp"
+            bott
             />
     </RelativeLayout>
 
