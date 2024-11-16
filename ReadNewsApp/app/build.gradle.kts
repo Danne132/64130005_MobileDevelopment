@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -32,7 +33,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.glide)          // Thêm Glide vào dependencies
+    implementation(libs.glide)
+    implementation(libs.firebase.auth)          // Thêm Glide vào dependencies
     annotationProcessor(libs.glideCompiler)
     implementation(libs.appcompat)
     implementation(libs.material)
