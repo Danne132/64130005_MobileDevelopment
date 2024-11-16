@@ -33,7 +33,7 @@
             android:layout_marginTop="10dp"
             />
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputEmailLayout"
+            android:id="@+id/inputEmailLayoutSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/introSignIn"
@@ -54,7 +54,7 @@
                     android:src="@drawable/envelope" />
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputEmail"
+                    android:id="@+id/inputEmailSignIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/InputStyle"
@@ -64,10 +64,10 @@
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputPassLayout"
+            android:id="@+id/inputPassLayoutSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/inputEmailLayout"
+            app:layout_constraintTop_toBottomOf="@+id/inputEmailLayoutSignIn"
             android:layout_marginTop="20dp"
             app:hintAnimationEnabled="false"
             app:hintEnabled="false"
@@ -86,7 +86,7 @@
                     android:src="@drawable/padlock" />
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputPass"
+                    android:id="@+id/inputPassSignIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/InputStyle"
@@ -95,5 +95,58 @@
                     />
             </LinearLayout>
         </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/forgetPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/inputPassLayoutSignIn"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="20dp"
+            style="@style/InputStyle"
+            android:textColor="@color/content_color"
+            android:text="Quên mật khẩu?"/>
+        <Button
+            android:id="@+id/btnSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/forgetPass"
+            android:layout_marginTop="25dp"
+            style="@style/ButtonSign"
+            app:backgroundTint="@null"
+            android:text="Đăng nhập"
+            />
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraint="parent"
+            android:layout_marginTop="25dp"
+            style="@style/InputStyle"
+            android:text="Hoặc"
+            android:textColor="@color/content_color"
+            />
+        <LinearLayout
+            android:id="@+id/btnSignInGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/or"
+            android:layout_marginTop="25dp"
+            app:background="@drawable/border_round">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/padlock"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#666C8E"
+                android:text="Đăng nhập với Google"
+                android:fontFamily="@font/inter_semi_bold"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
