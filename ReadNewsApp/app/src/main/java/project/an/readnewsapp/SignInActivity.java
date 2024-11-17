@@ -33,6 +33,7 @@ public class SignInActivity extends AppCompatActivity {
     Button btnSignIn;
     LinearLayout btnSignInGoogle, btnSignInFacebook;
 
+
     private void getControl(){
         inputEmailSignIn = findViewById(R.id.inputEmailSignIn);
         inputPassSignIn = findViewById(R.id.inputPassSignIn);
@@ -42,6 +43,8 @@ public class SignInActivity extends AppCompatActivity {
         btnSignInGoogle = findViewById(R.id.btnSignInGoogle);
         needMail = findViewById(R.id.needMail);
         needPass = findViewById(R.id.needPass);
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.setLanguageCode("en");
     }
 
     @Override
@@ -102,6 +105,7 @@ public class SignInActivity extends AppCompatActivity {
                 needPass.setText("Hãy nhập mật khẩu!");
                 return;
             }
+            btnSignIn.setText("Xác thực...");
             mAuth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -114,8 +118,8 @@ public class SignInActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(SignInActivity.this, "Authentication failed.",Toast.LENGTH_LONG).show();
+                                btnSignIn.setText("Đăng nhập");
+
                             }
                         }
                     });
