@@ -3,8 +3,13 @@ package project.an.readnewsapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.ClickableSpan;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -29,10 +34,9 @@ public class SignInActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     TextInputEditText inputEmailSignIn, inputPassSignIn;
-    TextView forgetPass, needPass, needMail;
+    TextView forgetPass, needPass, needMail, textClickSignUp;
     Button btnSignIn;
-    LinearLayout btnSignInGoogle, btnSignInFacebook;
-
+    LinearLayout btnSignInGoogle, btnSignInFacebook, changeSignUp;
 
     private void getControl(){
         inputEmailSignIn = findViewById(R.id.inputEmailSignIn);
@@ -43,8 +47,9 @@ public class SignInActivity extends AppCompatActivity {
         btnSignInGoogle = findViewById(R.id.btnSignInGoogle);
         needMail = findViewById(R.id.needMail);
         needPass = findViewById(R.id.needPass);
+        inputPassSignIn = findViewById(R.id.inputPassSignIn);
+        textClickSignUp = findViewById(R.id.textClickSignUp);
         mAuth = FirebaseAuth.getInstance();
-        mAuth.setLanguageCode("en");
     }
 
     @Override
@@ -112,7 +117,6 @@ public class SignInActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(SignInActivity.this, "Login successful",Toast.LENGTH_LONG).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
