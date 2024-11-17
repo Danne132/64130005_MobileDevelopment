@@ -2,7 +2,9 @@ package project.an.readnewsapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -48,8 +50,42 @@ public class SignInActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_in);
         getControl();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        btnSignIn.setOnClickListener(signInMailAndPass);
+        inputEmailSignIn.addTextChangedListener(putEmail);
     }
+
+    TextWatcher putEmail = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            needMail.setText("");
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+    TextWatcher putPass = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            needPass.setText("");
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     View.OnClickListener signInMailAndPass = new View.OnClickListener() {
         @Override
@@ -58,11 +94,12 @@ public class SignInActivity extends AppCompatActivity {
             email = String.valueOf(inputEmailSignIn.getText());
             pass = String.valueOf(inputPassSignIn.getText());
             if(TextUtils.isEmpty(email)){
-                needMail.setText("Hãy nhập email");
+                needMail.setText("Hãy nhập email!");
                 return;
             }
             if(TextUtils.isEmpty(pass)){
-                needPass.setText("Hãy nhập mật khẩu");
+                needMail.setText("");
+                needPass.setText("Hãy nhập mật khẩu!");
                 return;
             }
             mAuth.signInWithEmailAndPassword(email, pass)
