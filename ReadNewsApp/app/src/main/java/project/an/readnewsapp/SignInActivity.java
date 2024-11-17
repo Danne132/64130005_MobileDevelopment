@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -44,7 +45,6 @@ public class SignInActivity extends AppCompatActivity {
     TextView forgetPass, needPass, needMail, textClickSignUp;
     Button btnSignIn;
     LinearLayout btnSignInGoogle, btnSignInFacebook, changeSignUp;
-    ProgressBar progressBar;
 
     private void getControl(){
         inputEmailSignIn = findViewById(R.id.inputEmailSignIn);
@@ -118,31 +118,38 @@ public class SignInActivity extends AppCompatActivity {
                 needPass.setText("Hãy nhập mật khẩu!");
                 return;
             }
-            showResultDialog();
-            mAuth.signInWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-
-                                // Sign in success, update UI with the signed-in user's information
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                btnSignIn.setText("Đăng nhập");
-
-                            }
-                        }
-                    });
+            showResultDialog(email, pass);
         }
     };
-    private void showResultDialog(){
-        progressBar.setVisibility(View.VISIBLE);
+    private void showResultDialog(String email, String pass){
         final Dialog dialog = new Dialog(this);
+        ImageView closed = findViewById(R.id.closedDialog);
+        ImageView resultIcon = findViewById(R.id.resultIcon);
+        TextView resultText = findViewById(R.id.resultText);
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.notification_dialog);
+        mAuth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressBar.setVisibility(View.GONE);
+                        if (task.isSuccessful()) {
+                            resultIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                            resultText.setText("Đăng nhập thành công");
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            resultIcon.setImageResource(R.drawable.baseline_false_circle_24);
+                            resultText.setText("Đăng nhập thất bại");
+                            dialog.dismiss();
+                        }
+                    }
+                });
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
