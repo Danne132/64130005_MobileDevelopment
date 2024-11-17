@@ -1,6 +1,9 @@
 package project.an.readnewsapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -10,9 +13,13 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
 import android.text.style.UnderlineSpan;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +44,7 @@ public class SignInActivity extends AppCompatActivity {
     TextView forgetPass, needPass, needMail, textClickSignUp;
     Button btnSignIn;
     LinearLayout btnSignInGoogle, btnSignInFacebook, changeSignUp;
+    ProgressBar progressBar;
 
     private void getControl(){
         inputEmailSignIn = findViewById(R.id.inputEmailSignIn);
@@ -110,12 +118,13 @@ public class SignInActivity extends AppCompatActivity {
                 needPass.setText("Hãy nhập mật khẩu!");
                 return;
             }
-            btnSignIn.setText("Xác thực...");
+            showResultDialog();
             mAuth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -129,4 +138,15 @@ public class SignInActivity extends AppCompatActivity {
                     });
         }
     };
+    private void showResultDialog(){
+        progressBar.setVisibility(View.VISIBLE);
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.notification_dialog);
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.CENTER);
+    }
 }
