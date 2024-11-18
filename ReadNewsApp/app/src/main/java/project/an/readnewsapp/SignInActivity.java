@@ -71,6 +71,7 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(signInMailAndPass);
         inputEmailSignIn.addTextChangedListener(putEmail);
         inputPassSignIn.addTextChangedListener(putPass);
+
     }
 
     TextWatcher putEmail = new TextWatcher() {
@@ -173,4 +174,11 @@ public class SignInActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.CENTER);
     }
+    View.OnClickListener changeSignUpActivity = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent signUpIntent = new Intent(SignInActivity.this, SignUpActivity.class);
+            startActivity(signUpIntent);
+        }
+    };
 }

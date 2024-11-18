@@ -32,10 +32,12 @@ public class SplashAcitvity extends AppCompatActivity {
                     Intent intent = new Intent(SplashAcitvity.this, MainActivity.class);
                     // Người dùng đã đăng nhập, chuyển đến MainActivity
                     startActivity(intent);
+                    finish();
                 } else {
                     Intent intent = new Intent(SplashAcitvity.this, IntroActivity.class);
                     // Người dùng chưa đăng nhập, chuyển đến IntroActivity
                     startActivity(intent);
+                    finish();
                 }
                 finish();
             }
