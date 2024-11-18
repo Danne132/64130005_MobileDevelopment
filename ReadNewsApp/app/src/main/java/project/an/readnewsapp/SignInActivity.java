@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -68,6 +70,7 @@ public class SignInActivity extends AppCompatActivity {
         getControl();
         btnSignIn.setOnClickListener(signInMailAndPass);
         inputEmailSignIn.addTextChangedListener(putEmail);
+        inputPassSignIn.addTextChangedListener(putPass);
     }
 
     TextWatcher putEmail = new TextWatcher() {
@@ -123,18 +126,20 @@ public class SignInActivity extends AppCompatActivity {
     };
     private void showResultDialog(String email, String pass){
         final Dialog dialog = new Dialog(this);
-        ImageView closed = findViewById(R.id.closedDialog);
-        ImageView resultIcon = findViewById(R.id.resultIcon);
-        TextView resultText = findViewById(R.id.resultText);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.notification_dialog);
+        ImageView closed = dialog.findViewById(R.id.closedDialog);
+        ImageView resultIcon = dialog.findViewById(R.id.resultIcon);
+        TextView resultText = dialog.findViewById(R.id.resultText);
+        ProgressBar progressBar = dialog.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+        resultIcon.setVisibility(View.GONE);
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressBar.setVisibility(View.GONE);
+                        resultIcon.setVisibility(View.VISIBLE);
                         if (task.isSuccessful()) {
                             resultIcon.setImageResource(R.drawable.baseline_check_circle_24);
                             resultText.setText("Đăng nhập thành công");
@@ -146,10 +151,22 @@ public class SignInActivity extends AppCompatActivity {
                         } else {
                             resultIcon.setImageResource(R.drawable.baseline_false_circle_24);
                             resultText.setText("Đăng nhập thất bại");
-                            dialog.dismiss();
+//                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    // Thực hiện lệnh sau 2 giây
+//                                    dialog.dismiss();
+//                                }
+//                            }, 2000);
                         }
                     }
                 });
+        closed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
