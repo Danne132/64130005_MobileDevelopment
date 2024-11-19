@@ -53,7 +53,6 @@ public class SignUpActivity extends AppCompatActivity {
         getControl();
         inputEmailSignUp.addTextChangedListener(checkEmail);
         inputPassSignUp.addTextChangedListener(checkPass);
-        textClickSignIn.setOnClickListener(changeSignInActivity);
     }
 
     //Check mật khẩu: ít nhất 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt
@@ -111,6 +110,29 @@ public class SignUpActivity extends AppCompatActivity {
             }
             else{
                 ivalidPass.setText("");
+
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s){
+        }
+    };
+
+    TextWatcher checkUser = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            userName = inputUserSignUp.getText().toString();
+            if(!isValidPassword(userName)){
+                ivalidUser.setText("Mật khẩu phải từ 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt!");
+            }
+            else{
+                ivalidUser.setText("");
 
             }
         }
