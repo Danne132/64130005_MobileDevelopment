@@ -18,11 +18,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ContentFragment contentFragment = new ContentFragment();
-        FooterFragment footerFragment = new FooterFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content, contentFragment).commit();
-        fragmentTransaction.replace(R.id.btn, footerFragment);
+
     }
 }
