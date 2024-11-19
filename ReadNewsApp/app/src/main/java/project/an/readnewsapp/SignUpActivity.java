@@ -1,25 +1,30 @@
 package project.an.readnewsapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     TextInputEditText inputEmailSignUp, inputPassSignUp, inputUserSignUp, inputConfirmPassSignUp;
+    TextInputLayout inputEmailLayoutSignUp, inputPassLayoutSignUp, inputUserLayoutSignUp, inputConfirmPassLayoutSignUp;
     TextView ivalidPass, ivalidMail, ivalidUser, textClickSignIn;
     Button btnSignUp;
     String email, password, userName;
@@ -28,6 +33,11 @@ public class SignUpActivity extends AppCompatActivity {
         inputEmailSignUp = findViewById(R.id.inputEmailSignUp);
         inputPassSignUp = findViewById(R.id.inputPassSignUp);
         inputUserSignUp = findViewById(R.id.inputUserSignUp);
+        inputConfirmPassSignUp = findViewById((R.id.inputConfirmPassSignUp));
+        inputEmailLayoutSignUp = findViewById(R.id.inputEmailLayoutSignUp);
+        inputPassLayoutSignUp = findViewById(R.id.inputPassLayoutSignUp);
+        inputUserLayoutSignUp = findViewById(R.id.inputUserLayoutSignUp);
+        inputConfirmPassLayoutSignUp = findViewById((R.id.inputConfirmPassLayoutSignUp));
         btnSignUp = findViewById(R.id.btnSignUp);
         ivalidMail = findViewById(R.id.ivalidMail);
         ivalidPass = findViewById(R.id.ivalidPass);
@@ -41,6 +51,9 @@ public class SignUpActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
         getControl();
+        inputEmailSignUp.addTextChangedListener(checkEmail);
+        inputPassSignUp.addTextChangedListener(checkPass);
+        textClickSignIn.setOnClickListener(changeSignInActivity);
     }
 
     //Check mật khẩu: ít nhất 8 ký tự, có chữ hoa, chữ thường, số và ký tự đặc biệt
@@ -81,6 +94,37 @@ public class SignUpActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s){
+        }
+    };
+
+    TextWatcher checkPass = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            password = inputPassSignUp.getText().toString();
+            if(!isValidPassword(password)){
+                ivalidPass.setText("Mật khẩu phải từ 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt!");
+            }
+            else{
+                ivalidPass.setText("");
+
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s){
+        }
+    };
+
+    View.OnClickListener changeSignInActivity = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent signInIntent = new Intent(SignUpActivity.this, SignInActivity.class);
+            startActivity(signInIntent);
         }
     };
 }
