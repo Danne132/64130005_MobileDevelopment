@@ -71,7 +71,7 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(signInMailAndPass);
         inputEmailSignIn.addTextChangedListener(putEmail);
         inputPassSignIn.addTextChangedListener(putPass);
-
+        textClickSignUp.setOnClickListener(changeSignUpActivity);
     }
 
     TextWatcher putEmail = new TextWatcher() {
