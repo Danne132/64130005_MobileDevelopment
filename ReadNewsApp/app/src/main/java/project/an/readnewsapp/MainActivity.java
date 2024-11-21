@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -14,8 +15,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
+
 public class MainActivity extends AppCompatActivity {
 
+    ImageView homeNav, categoriesNav, bookmarkNav, profileNav;
+
+    private void getControl(){
+        homeNav = findViewById(R.id.homeNav);
+        categoriesNav = findViewById(R.id.categoriesNav);
+        bookmarkNav = findViewById(R.id.bookmarkNav);
+        profileNav = findViewById(R.id.profileNav);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         getControl();
         replaceFragment(new HomeFragment());
         homeNav.setOnClickListener(homeClick);
-        categoriesNav.setOnClickListener(cateClick);
+        categoriesNav.setOnClickListener(categoriesClick);
         bookmarkNav.setOnClickListener(bookmarkClick);
         profileNav.setOnClickListener(profileClick);
     }
@@ -33,11 +44,10 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener homeClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            homeNav.setImageResource();
             replaceFragment(new HomeFragment());
         }
     };
-    View.OnClickListener cateClick = new View.OnClickListener() {
+    View.OnClickListener categoriesClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             replaceFragment(new CategoriesFragment());
