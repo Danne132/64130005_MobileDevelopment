@@ -16,13 +16,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView homeNav, profileNav, categoriesNav, bookmarkNav;
-    private void getControl(){
-        homeNav = findViewById(R.id.homeNav);
-        profileNav = findViewById(R.id.profileNav);
-        categoriesNav = findViewById(R.id.categoriesNav);
-        bookmarkNav = findViewById(R.id.bookmarkNav);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +23,36 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         getControl();
+        replaceFragment(new HomeFragment());
         homeNav.setOnClickListener(homeClick);
+        categoriesNav.setOnClickListener(cateClick);
+        bookmarkNav.setOnClickListener(bookmarkClick);
+        profileNav.setOnClickListener(profileClick);
     }
 
     View.OnClickListener homeClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            homeNav.setImageResource();
             replaceFragment(new HomeFragment());
+        }
+    };
+    View.OnClickListener cateClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            replaceFragment(new CategoriesFragment());
+        }
+    };
+    View.OnClickListener bookmarkClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            replaceFragment(new BookmarkFragment());
+        }
+    };
+    View.OnClickListener profileClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            replaceFragment(new ProfileFragment());
         }
     };
 
