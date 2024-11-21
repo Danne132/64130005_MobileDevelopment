@@ -3,13 +3,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Home"
-        android:gravity="center"/>
+        android:paddingHorizontal="20dp"
+        android:paddingTop="70dp"
+        >
+        <TextView
+            android:id="@+id/titleHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TitleStyle"
+            android:text="Browse"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/introHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ContentStyle"
+            android:text="Discover newest technology of this world"
+            app:layout_constraintTop_toBottomOf="@+id/titleHome"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="10dp"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputSearchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/introHome"
+            android:layout_marginTop="30dp"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false"
+            android:background="@drawable/input_border"
+            android:paddingHorizontal="20dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/search" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/inputSearch"
+                    style="@style/InputStyle"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Search"
+                    android:textColorHint="@color/content_color" />
+                <ImageView
+                    android:id="@+id/micro"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/microphone"/>
+            </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height=""
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

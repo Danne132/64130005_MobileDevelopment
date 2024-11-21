@@ -21,7 +21,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:gravity="center"
             android:paddingBottom="70dp"
-            android:paddingTop="20dp">
+            android:paddingTop="20dp"
+            android:background="@drawable/bottom_border">
             <ImageView
                 android:id="@+id/homeNav"
                 android:layout_width="wrap_content"

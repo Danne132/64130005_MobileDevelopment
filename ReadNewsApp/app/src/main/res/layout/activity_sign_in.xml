@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/introSignIn"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             app:hintAnimationEnabled="false"
             app:hintEnabled="false"
             android:background="@drawable/input_border"
