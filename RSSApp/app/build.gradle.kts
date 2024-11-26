@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.jsoup)
     implementation(libs.glide)
     implementation(libs.okhttp3)
     implementation(libs.appcompat)
