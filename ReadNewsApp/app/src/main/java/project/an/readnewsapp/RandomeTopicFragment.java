@@ -44,6 +44,5 @@ public class RandomeTopicFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int position = getArguments() != null ? getArguments().getInt(ARG_POSITION) : 0;
     }
 }

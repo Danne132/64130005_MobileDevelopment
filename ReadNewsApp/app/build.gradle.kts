@@ -33,8 +33,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.okhttp3)
     implementation(libs.glide)
-    implementation(libs.firebase.auth)          // Thêm Glide vào dependencies
+    implementation(libs.firebase.auth)
     annotationProcessor(libs.glideCompiler)
     implementation(libs.appcompat)
     implementation(libs.material)

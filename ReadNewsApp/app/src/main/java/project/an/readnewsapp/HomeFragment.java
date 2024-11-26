@@ -21,6 +21,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 
 public class HomeFragment extends Fragment {
 
@@ -31,6 +37,7 @@ public class HomeFragment extends Fragment {
     ViewPager2 viewNewsList;
     String[] tabTitles;
     ViewPageAdapter adapter;
+    OkHttpClient client;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,5 +104,12 @@ public class HomeFragment extends Fragment {
         }
     };
 
-
+    public String loadRSS(String url) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            return response.body().string();
+        }
+    }
 }
