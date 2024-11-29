@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Danh sách các chủ đề
         List<RSSCategory> categories = new ArrayList<>();
-        categories.add(new RSSCategory("Technology", "https://www.cnet.com/rss/news/"));
-        categories.add(new RSSCategory("AI/ML", "https://www.wired.com/feed/tag/ai/latest/rss"));
+        categories.add(new RSSCategory("Technology", "https://dev.to/feed"));
+        categories.add(new RSSCategory("Web Dev", "https://www.smashingmagazine.com/feed/"));
         categories.add(new RSSCategory("Technology", "https://www.wired.com/feed/category/security/latest/rss"));
 
 
@@ -97,12 +97,13 @@ public class MainActivity extends AppCompatActivity {
                     String pubDate = getElementValue(itemElement, "pubDate");
 
                     // Giả sử hình ảnh nằm trong thẻ <media:content> hoặc trong <description>
-                    String imageUrl = getElementValue(itemElement, "media:content");
+                    String imageUrl = getElementValue(itemElement, "media:thumbnail");
                     if (imageUrl == null || imageUrl.isEmpty()) {
                         imageUrl = extractImageFromDescription(description);
                     }
 
-                    RSSItem rssItem = new RSSItem(title, link, description, pubDate, imageUrl);
+//                  RSSItem rssItem = new RSSItem(title, link, description, pubDate, imageUrl);
+                    RSSItem rssItem = new RSSItem(title, imageUrl, description, pubDate, link);
                     rssItems.add(rssItem);
                 }
             }

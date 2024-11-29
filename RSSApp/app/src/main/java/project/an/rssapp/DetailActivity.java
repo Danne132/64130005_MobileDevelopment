@@ -1,15 +1,18 @@
 package project.an.rssapp;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.webkit.WebView;
-import android.widget.Button;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+
+import org.jsoup.Jsoup;
 
 public class DetailActivity extends AppCompatActivity {
     @Override
@@ -28,11 +31,13 @@ public class DetailActivity extends AppCompatActivity {
         String content = getIntent().getStringExtra("content");
         String pubDate = getIntent().getStringExtra("pubDate");
 
+        //Chuyển hóa các thẻ HTML
+        Spanned plainText = Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY);
+
         // Gán dữ liệu vào giao diện
         titleTextView.setText(title);
-        contentTextView.setText(content);
         pubDateTextView.setText(pubDate);
-
+        contentTextView.setText(plainText);
         Glide.with(this).load(imageUrl).into(imageView);
     }
 }
