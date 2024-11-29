@@ -1,4 +1,4 @@
-package project.an.readnewsapp;
+package project.an.readnewsapp.Fragment.Navigation;
 
 import android.os.Bundle;
 
@@ -12,10 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,6 +24,8 @@ import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import project.an.readnewsapp.R;
+import project.an.readnewsapp.Adapter.ViewPageAdapter;
 
 
 public class HomeFragment extends Fragment {

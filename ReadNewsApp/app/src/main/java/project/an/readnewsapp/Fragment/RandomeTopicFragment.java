@@ -1,4 +1,4 @@
-package project.an.readnewsapp;
+package project.an.readnewsapp.Fragment;
 
 import android.os.Bundle;
 
@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import project.an.readnewsapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

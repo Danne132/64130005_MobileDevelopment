@@ -1,21 +1,20 @@
-package project.an.readnewsapp;
+package project.an.readnewsapp.Activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomappbar.BottomAppBar;
+import project.an.readnewsapp.Fragment.Navigation.BookmarkFragment;
+import project.an.readnewsapp.Fragment.Navigation.CategoriesFragment;
+import project.an.readnewsapp.Fragment.Navigation.HomeFragment;
+import project.an.readnewsapp.Fragment.Navigation.ProfileFragment;
+import project.an.readnewsapp.R;
 
 public class MainActivity extends AppCompatActivity {
 

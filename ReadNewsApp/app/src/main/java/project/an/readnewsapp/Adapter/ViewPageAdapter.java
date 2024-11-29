@@ -1,8 +1,10 @@
-package project.an.readnewsapp;
+package project.an.readnewsapp.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import project.an.readnewsapp.Fragment.RandomeTopicFragment;
 
 public class ViewPageAdapter extends FragmentStateAdapter {
 
