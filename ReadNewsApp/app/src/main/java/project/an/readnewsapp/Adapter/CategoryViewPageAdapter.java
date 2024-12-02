@@ -6,9 +6,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import project.an.readnewsapp.Fragment.RandomeTopicFragment;
 
-public class ViewPageAdapter extends FragmentStateAdapter {
+public class CategoryViewPageAdapter extends FragmentStateAdapter {
 
-    public ViewPageAdapter(@NonNull Fragment fragment) {
+    public CategoryViewPageAdapter(@NonNull Fragment fragment) {
         super(fragment);
     }
 
