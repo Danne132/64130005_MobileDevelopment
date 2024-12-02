@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import project.an.readnewsapp.Adapter.NewsListAdapter;
 import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
 
@@ -55,7 +56,7 @@ public class NewsListFragment extends Fragment {
                 List<NewsItem> rssItems = MainActivity.parseRSS(rssData);
 
                 getActivity().runOnUiThread(() -> {
-                    RSSAdapter adapter = new RSSAdapter(rssItems, getContext());
+                    NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext());
                     recyclerView.setAdapter(adapter);
                 });
                 Log.d("RSSFragment", "RSS Data: " + rssData);
