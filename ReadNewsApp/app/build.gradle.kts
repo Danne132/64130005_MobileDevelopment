@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.jsoup)
     implementation(libs.okhttp3)
     implementation(libs.glide)
     implementation(libs.firebase.auth)
