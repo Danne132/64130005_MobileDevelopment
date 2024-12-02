@@ -25,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import project.an.readnewsapp.R;
-import project.an.readnewsapp.Adapter.ViewPageAdapter;
+import project.an.readnewsapp.Adapter.CategoryViewPageAdapter;
 
 
 public class HomeFragment extends Fragment {
@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
     TabLayout tabCategories;
     ViewPager2 viewNewsList;
     String[] tabTitles;
-    ViewPageAdapter adapter;
+    CategoryViewPageAdapter adapter;
     OkHttpClient client;
 
     @Override
@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         tabCategories = view.findViewById(R.id.tabCategories);
         viewNewsList = view.findViewById(R.id.viewNewsList);
         tabTitles = new String[]{"Random", "AI/ML", "Gaming", "Security", "VR/AR", "Software"};
-        adapter = new ViewPageAdapter(this);
+        adapter = new CategoryViewPageAdapter(this);
         viewNewsList.setAdapter(adapter);
     }
 
