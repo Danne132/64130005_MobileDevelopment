@@ -28,7 +28,7 @@
             app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="10dp"
-            android:text="Số thứ nhất"
+            android:text="Số A"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold|italic" />
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@+id/soAInput"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="10dp"
-            android:text="Số thứ hai"
+            android:text="Số B"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold|italic" />
@@ -85,58 +85,75 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Các nút toán tử -->
-        <LinearLayout
-            android:id="@+id/mathBtn"
-            android:layout_width="match_parent"
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/soBInput"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <RadioButton
+            android:id="@+id/radioCong"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/soBInput"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="cộng"
+            android:textColor="@color/black"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnCong"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_cong" />
+        <RadioButton
+            android:id="@+id/radioTru"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="trừ"
+            android:textColor="@color/black"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnTru"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_tru" />
+        <RadioButton
+            android:id="@+id/radioNhan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="nhân"
+            android:textColor="@color/black"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnNhan"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_nhan" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChia"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_chia" />
-        </LinearLayout>
+        <RadioButton
+            android:id="@+id/radioChia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="chia"
+            android:textColor="@color/black"/>
+    </RadioGroup>
+    <Button
+        android:id="@+id/tinhBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:backgroundTint="@null"
+        android:text="Tính toán"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp" />
 
         <!-- Kết quả -->
         <TextView
             android:id="@+id/KQLable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/mathBtn"
+            app:layout_constraintTop_toBottomOf="@id/tinhBtn"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="10dp"
             android:text="Kết quả"
             android:textSize="18sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold|italic"
+            android:textColor="@color/black"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="377dp"

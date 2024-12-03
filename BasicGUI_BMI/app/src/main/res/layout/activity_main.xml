@@ -5,15 +5,91 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:padding="20dp">
 
     <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:text="Tính BMI"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+    <!-- Số thứ nhất -->
+    <TextView
+        android:id="@+id/heightLable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:text="Chiều cao"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/heightInput"
+        android:layout_width="353dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/heightLable"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="#FFFFFF"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="150dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtHeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            tools:layout_editor_absoluteX="3dp"
+            tools:layout_editor_absoluteY="104dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Số thứ hai -->
+    <TextView
+        android:id="@+id/weightLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/heightInput"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:text="Số thứ hai"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weightInput"
+        android:layout_width="353dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/weightLable"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="#FFFFFF"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="150dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            tools:layout_editor_absoluteX="3dp"
+            tools:layout_editor_absoluteY="104dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <CheckBox
+        android:id="@+id/cbIsAsian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/weightInput"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Bạn là người Châu Á?"
+        android:textStyle="italic"
+        android:layout_marginTop="8dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

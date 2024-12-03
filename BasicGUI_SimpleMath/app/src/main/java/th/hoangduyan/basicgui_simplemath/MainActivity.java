@@ -1,9 +1,14 @@
 package th.hoangduyan.basicgui_simplemath;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,19 +23,22 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    AppCompatButton btnCong, btnTru, btnNhan, btnChia;
+    RadioGroup radioGroup;
+    Button btnTinh;
     EditText txtSoA, txtSoB, txtKQ;
     List<AppCompatButton> btns;
+    RadioButton rbAdd, rbSubtract, rbMultiply, rbDivide;
     double soA, soB, kq;
     void getControl(){
-        btnCong = findViewById(R.id.btnCong);
-        btnTru = findViewById(R.id.btnTru);
-        btnNhan = findViewById(R.id.btnNhan);
-        btnChia = findViewById(R.id.btnChia);
-        btns = new ArrayList<>(Arrays.asList(btnCong, btnTru, btnNhan, btnChia));
+        btnTinh = findViewById(R.id.tinhBtn);
+        radioGroup = findViewById(R.id.radioGroup);
         txtSoA = findViewById(R.id.txtSoA);
         txtSoB = findViewById(R.id.txtSoB);
         txtKQ = findViewById(R.id.txtKQ);
+        rbAdd = findViewById(R.id.radioCong);
+        rbSubtract = findViewById(R.id.radioTru);
+        rbMultiply = findViewById(R.id.radioNhan);
+        rbDivide = findViewById(R.id.radioChia);
     }
 
     @Override
@@ -39,95 +47,51 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         getControl();
-        btnCong.setOnClickListener(clickCong);
-        btnTru.setOnClickListener(clickTru);
-        btnNhan.setOnClickListener(clickNhan);
-        btnChia.setOnClickListener(clickChia);
-        for(AppCompatButton btn : btns){
-            btn.setOnTouchListener(touchBtn);
-        }
+        btnTinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calculateM();
+            }
+        });
     }
 
-    View.OnTouchListener touchBtn = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                v.setScaleX(0.9f);
-                v.setScaleY(0.9f);
-            } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                v.setScaleX(1.0f);
-                v.setScaleY(1.0f);
-            }
-            return false;
-        }
-    };
 
-    View.OnClickListener clickCong = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(check()) {
-                soA = Double.parseDouble(txtSoA.getText().toString());
-                soB = Double.parseDouble(txtSoB.getText().toString());
-                kq = soA + soB;
-                txtKQ.setText(String.valueOf(kq));
-            }
-            else {
-                txtKQ.setText("NaN");
-            }
-        }
-    };
+    private void calculateM() {
+        String number1Str = txtSoA.getText().toString();
+        String number2Str = txtSoB.getText().toString();
 
-    View.OnClickListener clickTru = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(check()) {
-                soA = Double.parseDouble(txtSoA.getText().toString());
-                soB = Double.parseDouble(txtSoB.getText().toString());
-                kq = soA - soB;
-                txtKQ.setText(String.valueOf(kq));
-            }
-            else {
-                txtKQ.setText("NaN");
-            }
+        if (number1Str.isEmpty() || number2Str.isEmpty()) {
+            Toast.makeText(MainActivity.this, "Vui lòng nhập đủ số", Toast.LENGTH_SHORT).show();
+            return;
         }
-    };
 
-    View.OnClickListener clickNhan = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(check()) {
-                soA = Double.parseDouble(txtSoA.getText().toString());
-                soB = Double.parseDouble(txtSoB.getText().toString());
-                kq = soA * soB;
-                txtKQ.setText(String.valueOf(kq));
+        double number1 = Double.parseDouble(number1Str);
+        double number2 = Double.parseDouble(number2Str);
+        double result = 0;
+        boolean isOperationSelected = false;
+
+        if (rbAdd.isChecked()) {
+            result = number1 + number2;
+            isOperationSelected = true;
+        } else if (rbSubtract.isChecked()) {
+            result = number1 - number2;
+            isOperationSelected = true;
+        } else if (rbMultiply.isChecked()) {
+            result = number1 * number2;
+            isOperationSelected = true;
+        } else if (rbDivide.isChecked()) {
+            if (number2 == 0) {
+                Toast.makeText(MainActivity.this, "Không thể chia cho 0", Toast.LENGTH_SHORT).show();
+                return;
             }
-            else {
-                txtKQ.setText("NaN");
-            }
+            result = number1 / number2;
+            isOperationSelected = true;
         }
-    };
 
-    View.OnClickListener clickChia = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if(check()) {
-                soA = Double.parseDouble(txtSoA.getText().toString());
-                soB = Double.parseDouble(txtSoB.getText().toString());
-                if(soB == 0)
-                    txtKQ.setText(String.valueOf("NaN"));
-                else {
-                    kq = soA / soB;
-                    txtKQ.setText(String.valueOf(kq));
-                }
-            }
-            else
-                txtKQ.setText("NaN");
+        if (isOperationSelected) {
+            txtKQ.setText(String.valueOf(result));
+        } else {
+            Toast.makeText(MainActivity.this, "Vui lòng chọn phép toán", Toast.LENGTH_SHORT).show();
         }
-    };
-
-    boolean check(){
-        if(txtSoB.getText().toString().isEmpty() || txtSoA.getText().toString().isEmpty())
-            return false;
-        return true;
     }
 }
