@@ -19,6 +19,7 @@
             android:layout_height="50dp"
             app:backgroundTint="@null"
             android:background="@drawable/left_click"
+            android:layout_marginRight="10dp"
             />
         <Button
             android:layout_width="50dp"
