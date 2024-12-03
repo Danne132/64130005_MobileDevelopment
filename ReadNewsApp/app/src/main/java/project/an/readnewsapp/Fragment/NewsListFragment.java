@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import project.an.readnewsapp.Adapter.NewsListAdapter;
+import project.an.readnewsapp.Fragment.Navigation.HomeFragment;
 import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
 
@@ -46,14 +47,15 @@ public class NewsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_news_list, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Tải dữ liệu RSS
         new Thread(() -> {
             try {
-                String rssData = MainActivity.fetchRSS(rssUrl);
-                List<NewsItem> rssItems = MainActivity.parseRSS(rssData);
+                String rssData = HomeFragment.fetchRSS(category_url);
+                List<NewsItem> rssItems = HomeFragment.parseRSS(rssData);
 
                 getActivity().runOnUiThread(() -> {
                     NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext());
@@ -64,6 +66,6 @@ public class NewsListFragment extends Fragment {
                 e.printStackTrace();
             }
         }).start();
-        return inflater.inflate(R.layout.fragment_news_list, container, false);
+        return view;
     }
 }
