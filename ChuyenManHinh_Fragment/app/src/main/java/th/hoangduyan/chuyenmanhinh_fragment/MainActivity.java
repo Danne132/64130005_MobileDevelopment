@@ -26,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        getControl();
         englishBtn.setOnClickListener(englishClick);
+        mathBtn.setOnClickListener(mathClick);
+        codeBtn.setOnClickListener(codeClick);
     }
 
     View.OnClickListener englishClick = new View.OnClickListener() {
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener codeClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(MainActivity.this, EnglishActivity.class);
+            Intent intent = new Intent(MainActivity.this, CodeActivity.class);
             startActivity(intent);
         }
     };

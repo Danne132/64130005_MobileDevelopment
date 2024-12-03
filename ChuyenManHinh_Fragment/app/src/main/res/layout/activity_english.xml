@@ -5,6 +5,34 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EnglishActivity">
+    tools:context=".EnglishActivity"
+    android:padding="20dp">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentTop"
+        android:name="th.hoangduyan.chuyenmanhinh_fragment.English.ETopFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentBody"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="140dp" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentBody"
+        android:name="th.hoangduyan.chuyenmanhinh_fragment.English.EBodyFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentTop"
+        tools:layout_editor_absoluteX="197dp"
+        tools:layout_editor_absoluteY="252dp" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentBot"
+        android:name="th.hoangduyan.chuyenmanhinh_fragment.English.EBotFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="205dp"
+        tools:layout_editor_absoluteY="530dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
