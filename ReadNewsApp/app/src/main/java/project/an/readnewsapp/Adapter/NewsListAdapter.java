@@ -47,15 +47,15 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                 .into(holder.imageView);
 
         // Bắt sự kiện click vào một item
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailActivity.class);
-            intent.putExtra("title", newsItem.getTitle());
-            intent.putExtra("imageUrl", newsItem.getImgUrl());
-            intent.putExtra("link", newsItem.getLink());
-            intent.putExtra("content", newsItem.getContent());
-            intent.putExtra("pubDate", newsItem.getPupDate());
-            context.startActivity(intent);
-        });
+//        holder.itemView.setOnClickListener(v -> {
+//            Intent intent = new Intent(context, DetailActivity.class);
+//            intent.putExtra("title", newsItem.getTitle());
+//            intent.putExtra("imageUrl", newsItem.getImgUrl());
+//            intent.putExtra("link", newsItem.getLink());
+//            intent.putExtra("content", newsItem.getContent());
+//            intent.putExtra("pubDate", newsItem.getPupDate());
+//            context.startActivity(intent);
+//        });
     }
 
     @Override
@@ -69,8 +69,8 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.titleTextView);
-            imageView = itemView.findViewById(R.id.imageView);
+            titleTextView = itemView.findViewById(R.id.titleNews);
+            imageView = itemView.findViewById(R.id.imageNews);
         }
     }
 

@@ -20,10 +20,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import project.an.readnewsapp.Models.Categories;
 import project.an.readnewsapp.R;
 import project.an.readnewsapp.Adapter.CategoryViewPageAdapter;
 
@@ -35,7 +39,7 @@ public class HomeFragment extends Fragment {
     ImageView micro;
     TabLayout tabCategories;
     ViewPager2 viewNewsList;
-    String[] tabTitles;
+    List<Categories> categoriesList;
     CategoryViewPageAdapter adapter;
     OkHttpClient client;
 
@@ -65,7 +69,10 @@ public class HomeFragment extends Fragment {
         tabCategories = view.findViewById(R.id.tabCategories);
         viewNewsList = view.findViewById(R.id.viewNewsList);
         tabTitles = new String[]{"Random", "AI/ML", "Gaming", "Security", "VR/AR", "Software"};
-        adapter = new CategoryViewPageAdapter(this);
+        categoriesList = new ArrayList<>(Arrays.asList(
+           new Categories("AI/ML", )
+        ));
+        adapter = new CategoryViewPageAdapter(this, );
         viewNewsList.setAdapter(adapter);
     }
 
