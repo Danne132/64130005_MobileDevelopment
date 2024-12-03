@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,7 +28,9 @@ import project.an.readnewsapp.R;
 public class NewsListFragment extends Fragment {
 
     private static final String ARG_URL = "category_url";
-    private String category_url;
+    private String categoryUrl;
+    private RecyclerView recyclerView;
+    private NewsListAdapter adapter;
 
     public static NewsListFragment newInstance(String url) {
         NewsListFragment fragment = new NewsListFragment();
@@ -40,7 +44,7 @@ public class NewsListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            category_url = getArguments().getString(ARG_URL);
+            categoryUrl = getArguments().getString(ARG_URL);
         }
     }
 
@@ -48,13 +52,12 @@ public class NewsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         // Tải dữ liệu RSS
         new Thread(() -> {
             try {
-                String rssData = HomeFragment.fetchRSS(category_url);
+                String rssData = HomeFragment.fetchRSS(categoryUrl);
                 List<NewsItem> rssItems = HomeFragment.parseRSS(rssData);
 
                 getActivity().runOnUiThread(() -> {
@@ -66,6 +69,8 @@ public class NewsListFragment extends Fragment {
                 e.printStackTrace();
             }
         }).start();
+
         return view;
     }
+
 }

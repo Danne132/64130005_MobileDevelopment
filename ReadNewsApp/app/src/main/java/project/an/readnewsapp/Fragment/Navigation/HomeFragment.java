@@ -19,6 +19,8 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -82,7 +84,7 @@ public class HomeFragment extends Fragment {
         tabCategories = view.findViewById(R.id.tabCategories);
         viewNewsList = view.findViewById(R.id.viewNewsList);
         categoriesList = new ArrayList<>(Arrays.asList(
-           new Categories("AI/ML", "https://techcrunch.com/category/artificial-intelligence/feed/"),
+                new Categories("AI/ML", "https://techcrunch.com/category/artificial-intelligence/feed/"),
                 new Categories("VR/AR", "https://techcrunch.com/category/vr-ar/feed/"),
                 new Categories("Security", "https://techcrunch.com/category/security/feed/")
         ));
@@ -172,7 +174,7 @@ public class HomeFragment extends Fragment {
                     }
 
 //                  RSSItem rssItem = new RSSItem(title, link, description, pubDate, imageUrl);
-                    NewsItem newsItem = new NewsItem(title, imageUrl, description, pubDate, link);
+                    NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link);
                     newsItems.add(newsItem);
                 }
             }

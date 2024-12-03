@@ -1,16 +1,14 @@
 package project.an.readnewsapp.Models;
 
 public class NewsItem {
-    String title, imgUrl, content,pupDate, link;
+    String title, imgUrl,pupDate, link;
     boolean isSave;
 
-    public NewsItem(String title, String imgUrl, String content, String pupDate, String link) {
+    public NewsItem(String title, String imgUrl, String pupDate, String link) {
         this.title = title;
         this.imgUrl = imgUrl;
-        this.content = content;
         this.pupDate = pupDate;
         this.link = link;
-//        this.category = category.getTitle();
         this.isSave = false;
     }
 
@@ -30,13 +28,13 @@ public class NewsItem {
         this.imgUrl = imgUrl;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+//    public String getContent() {
+//        return content;
+//    }
+//
+//    public void setContent(String content) {
+//        this.content = content;
+//    }
 
     public String getPupDate() {
         return pupDate;
