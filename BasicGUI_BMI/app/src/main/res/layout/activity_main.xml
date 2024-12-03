@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/title"
@@ -58,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/heightInput"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="10dp"
-        android:text="Số thứ hai"
+        android:text="Cân nặng"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold|italic" />

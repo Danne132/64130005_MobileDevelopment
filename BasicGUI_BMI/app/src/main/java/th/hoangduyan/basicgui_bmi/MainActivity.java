@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        getControl();
         tinhBtn.setOnClickListener(btnClick);
     }
 
@@ -54,13 +55,18 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         bmi = weight / (height * height);
+        txtKQ.setText(String.valueOf(bmi));
         isAsian = cbIsAsian.isChecked();
         if (isAsian) {
             if(bmi < 17.5) txtDG.setText("Underweight");
             else if (bmi < 22.99) txtDG.setText("Normal");
-            else if (bmi)
+            else if (bmi < 27.99) txtDG.setText("Over weight");
+            else txtDG.setText("Obese");
         } else {
-
+            if(bmi < 18.5) txtDG.setText("Underweight");
+            else if (bmi < 24.99) txtDG.setText("Normal");
+            else if (bmi < 29.99) txtDG.setText("Over weight");
+            else txtDG.setText("Obese");
         }
     }
 }
