@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnTinh;
     EditText txtSoA, txtSoB, txtKQ;
     List<AppCompatButton> btns;
-    RadioButton rbAdd, rbSubtract, rbMultiply, rbDivide;
+    RadioButton radioCong, radioTru, radioNhan, radioChia;
     double soA, soB, kq;
     void getControl(){
         btnTinh = findViewById(R.id.tinhBtn);
@@ -35,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
         txtSoA = findViewById(R.id.txtSoA);
         txtSoB = findViewById(R.id.txtSoB);
         txtKQ = findViewById(R.id.txtKQ);
-        rbAdd = findViewById(R.id.radioCong);
-        rbSubtract = findViewById(R.id.radioTru);
-        rbMultiply = findViewById(R.id.radioNhan);
-        rbDivide = findViewById(R.id.radioChia);
+        radioCong = findViewById(R.id.radioCong);
+        radioTru = findViewById(R.id.radioTru);
+        radioNhan = findViewById(R.id.radioNhan);
+        radioChia = findViewById(R.id.radioChia);
     }
 
     @Override
@@ -70,18 +70,18 @@ public class MainActivity extends AppCompatActivity {
         double result = 0;
         boolean isOperationSelected = false;
 
-        if (rbAdd.isChecked()) {
+        if (radioCong.isChecked()) {
             result = number1 + number2;
             isOperationSelected = true;
-        } else if (rbSubtract.isChecked()) {
+        } else if (radioTru.isChecked()) {
             result = number1 - number2;
             isOperationSelected = true;
-        } else if (rbMultiply.isChecked()) {
+        } else if (radioNhan.isChecked()) {
             result = number1 * number2;
             isOperationSelected = true;
-        } else if (rbDivide.isChecked()) {
+        } else if (radioChia.isChecked()) {
             if (number2 == 0) {
-                Toast.makeText(MainActivity.this, "Không thể chia cho 0", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Số thứ hai phải khác 0", Toast.LENGTH_SHORT).show();
                 return;
             }
             result = number1 / number2;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         if (isOperationSelected) {
             txtKQ.setText(String.valueOf(result));
         } else {
-            Toast.makeText(MainActivity.this, "Vui lòng chọn phép toán", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Hãy chọn phép toán", Toast.LENGTH_SHORT).show();
         }
     }
 }
