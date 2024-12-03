@@ -20,24 +20,24 @@ import project.an.readnewsapp.R;
 
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>  {
 
-    private final List<NewsItem> rssItems;
+    private final List<NewsItem> newsItems;
     private final Context context;
 
     public NewsListAdapter(List<NewsItem> rssItems, Context context) {
-        this.rssItems = rssItems;
+        this.newsItems = rssItems;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public NewsListAdapter onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.news_item, parent, false);
-        return new RSSViewHolder(view);
+        return new NewsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RSSViewHolder holder, int position) {
-        NewsItem newsItem = rssItems.get(position);
+    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
+        NewsItem newsItem = newsItems.get(position);
         holder.titleTextView.setText(newsItem.getTitle());
 
         // Hiển thị hình ảnh bằng Glide (thư viện tải ảnh)
@@ -49,25 +49,25 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         // Bắt sự kiện click vào một item
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailActivity.class);
-            intent.putExtra("title", rssItem.getTitle());
-            intent.putExtra("imageUrl", rssItem.getImageUrl());
-            intent.putExtra("link", rssItem.getLink());
-            intent.putExtra("content", rssItem.getContent());
-            intent.putExtra("pubDate", rssItem.getPubDate());
+            intent.putExtra("title", newsItem.getTitle());
+            intent.putExtra("imageUrl", newsItem.getImgUrl());
+            intent.putExtra("link", newsItem.getLink());
+            intent.putExtra("content", newsItem.getContent());
+            intent.putExtra("pubDate", newsItem.getPupDate());
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return rssItems.size();
+        return newsItems.size();
     }
 
-    static class RSSViewHolder extends RecyclerView.ViewHolder {
+    static class NewsViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         ImageView imageView;
 
-        public RSSViewHolder(@NonNull View itemView) {
+        public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             imageView = itemView.findViewById(R.id.imageView);
