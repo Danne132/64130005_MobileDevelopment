@@ -5,6 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CodeActivity">
+    tools:context=".CodeActivity"
+    android:background="@android:color/holo_purple">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Màn hình Code Fragment"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
