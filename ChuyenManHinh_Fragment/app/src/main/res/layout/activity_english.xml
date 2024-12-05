@@ -8,6 +8,19 @@
     tools:context=".EnglishActivity"
     android:padding="20dp">
 
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentBody"
+        android:name="th.hoangduyan.chuyenmanhinh_fragment.English.EBodyFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentBot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentTop" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentTop"
         android:name="th.hoangduyan.chuyenmanhinh_fragment.English.ETopFragment"
@@ -16,17 +29,6 @@
         app:layout_constraintBottom_toTopOf="@+id/fragmentBody"
         tools:layout_editor_absoluteX="231dp"
         tools:layout_editor_absoluteY="140dp"/>
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentBody"
-        android:name="th.hoangduyan.chuyenmanhinh_fragment.English.EBodyFragment"
-        android:layout_width="376dp"
-        android:layout_height="661dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentBot"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentTop" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentBot"
