@@ -2,13 +2,126 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    android:background="#4472C4"
     tools:context=".Math.MBotFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Chọn câu hỏi Toán số"
+            android:textColor="@color/white"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/txt"
+            android:orientation="vertical"
+            android:paddingVertical="10dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="1"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="2"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="3"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="4"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="5"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="6"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="7"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="8"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="9"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="10"
+                    app:backgroundTint="@null"
+                    android:background="@drawable/button_question"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="0dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
