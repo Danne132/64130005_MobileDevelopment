@@ -1,12 +1,18 @@
 package th.hoangduyan.botnav_recy_vp2;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +65,19 @@ public class CN2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_c_n2, container, false);
+        View view = inflater.inflate(R.layout.fragment_c_n2, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.recycle);
+        List<String> data = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            data.add("Tóm Tắt " + i);
+        }
+        List<Integer> img = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            img.add(R.drawable.cn2);
+        }
+        RecycleViewAdapter adapter = new RecycleViewAdapter(data,img);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+        return view;
     }
 }

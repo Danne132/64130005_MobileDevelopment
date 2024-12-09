@@ -11,30 +11,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecycleViewAdapter implements RecyclerView.Adapter<MyAdapter.MyViewHolder>{
-    private List<String> data;
+public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder>{
+    private List<String> txt;
     private List<Integer> img;
 
-    public RecycleViewAdapter(List<String> data, List<Integer> img) {
-        this.data = data;
+    public RecycleViewAdapter(List<String> txt, List<Integer> img) {
+        this.txt = txt;
         this.img = img;
     }
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+    public RecycleViewAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
         return new MyViewHolder(view);
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.imageView.setImageResource(img.get(position));
-        holder.textView.setText(data.get(position));
+        holder.textView.setText(txt.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return txt.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -44,8 +46,8 @@ public class RecycleViewAdapter implements RecyclerView.Adapter<MyAdapter.MyView
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.text_view);
-            imageView = itemView.findViewById(R.id.image_view);
+            textView = itemView.findViewById(R.id.txt);
+            imageView = itemView.findViewById(R.id.img);
         }
     }
 }
