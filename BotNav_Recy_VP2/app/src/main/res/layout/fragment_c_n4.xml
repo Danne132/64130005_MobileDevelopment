@@ -222,7 +222,40 @@
                 android:layout_height="2dp"
                 android:background="#555"
                 android:layout_marginTop="10dp"/>
-            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/baseline_circle_24"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="FPT Telecom Wifi..."
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginRight="20dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_cell_tower_24"
+                    android:layout_marginRight="5dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:text="99 connects"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đang bật"
+                android:layout_marginLeft="40dp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
