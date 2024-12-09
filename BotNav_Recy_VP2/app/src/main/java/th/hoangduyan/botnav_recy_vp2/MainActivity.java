@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,10 +18,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new CN1Fragment()).commit();
+        }
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            if(item.getItemId()==R.id.cn1){
+                selectedFragment = new CN1Fragment();
+            } else if (item.getItemId()==R.id.cn2) {
+                selectedFragment = new CN2Fragment();
+            }else if (item.getItemId()==R.id.cn3) {
+                selectedFragment = new CN3Fragment();
+            }else {
+                selectedFragment = new CN4Fragment();
+
+            }
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
+            }
+            return true;
         });
     }
 }

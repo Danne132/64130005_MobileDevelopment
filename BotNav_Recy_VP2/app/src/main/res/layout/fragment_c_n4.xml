@@ -3,16 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CN1Fragment"
-    android:background="@drawable/background_cn1">
+    tools:context=".CN4Fragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="CHÀO MỪNG BẠN\nĐẾN VỚI\nCHỨC NĂNG 1\n(CN1)"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        />
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
