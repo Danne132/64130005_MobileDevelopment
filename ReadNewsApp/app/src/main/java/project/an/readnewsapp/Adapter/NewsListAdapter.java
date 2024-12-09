@@ -40,12 +40,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsItem newsItem = newsItems.get(position);
         holder.titleTextView.setText(newsItem.getTitle());
-
         // Hiển thị hình ảnh bằng Glide (thư viện tải ảnh)
-        Glide.with(context)
-                .load(newsItem.getImgUrl())
-                .placeholder(R.drawable.place_holder) // Hình ảnh thay thế khi đang tải
-                .into(holder.imageView);
+//        Glide.with(context)
+//                .load(newsItem.getImgUrl())
+//                .placeholder(R.drawable.place_holder) // Hình ảnh thay thế khi đang tải
+//                .into(holder.imageView);
 
 //         Bắt sự kiện click vào một item
         holder.itemView.setOnClickListener(v -> {
