@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "BotNav_Recy_VP2"
 include(":app")
- 
