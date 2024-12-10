@@ -7,16 +7,15 @@ import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    LinearLayout cppChoose;
+    LinearLayout cppChoose, javaChoose, pythonChoose;
 
     public void getControl(){
         cppChoose = findViewById(R.id.cppChoose);
+        javaChoose = findViewById(R.id.javaChoose);
+        pythonChoose = findViewById(R.id.pythonChoose);
     }
 
     @Override
@@ -28,7 +27,24 @@ public class MainActivity extends AppCompatActivity {
         cppChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CPPActivity.class);
+                Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                intent.putExtra("logo", R.drawable.cpp);
+                startActivity(intent);
+            }
+        });
+        javaChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                intent.putExtra("logo", R.drawable.java);
+                startActivity(intent);
+            }
+        });
+        pythonChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                intent.putExtra("logo", R.drawable.python);
                 startActivity(intent);
             }
         });

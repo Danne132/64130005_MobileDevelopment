@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizAppGUI"
         tools:targetApi="31">
+
         <activity
-            android:name=".CPPActivity"
+            android:name=".QuestionActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
