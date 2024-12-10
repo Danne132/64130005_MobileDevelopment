@@ -34,7 +34,7 @@
         android:layout_height="150dp"
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="236dp"
-        android:background="@drawable/language_border"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="64dp"
         app:cardCornerRadius="14dp"
@@ -59,13 +59,13 @@
         android:layout_marginHorizontal="40dp"
         android:orientation="vertical">
         <androidx.cardview.widget.CardView
-            android:id="@+id/answerA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="14dp"
             app:cardElevation="8dp"
             android:layout_marginBottom="20dp">
             <LinearLayout
+                android:id="@+id/answerA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="20dp"
@@ -88,13 +88,13 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/answerB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="14dp"
             app:cardElevation="8dp"
             android:layout_marginBottom="20dp">
             <LinearLayout
+                android:id="@+id/answerB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="20dp"
@@ -117,13 +117,13 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/answerC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="14dp"
             app:cardElevation="8dp"
             android:layout_marginBottom="20dp">
             <LinearLayout
+                android:id="@+id/answerC"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="20dp"
@@ -146,13 +146,13 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/answerD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="14dp"
             app:cardElevation="8dp"
             android:layout_marginBottom="20dp">
             <LinearLayout
+                android:id="@+id/answerD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="20dp"

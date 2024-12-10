@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -31,31 +32,31 @@ public class QuestionActivity extends AppCompatActivity {
 
     private int currentQuestionIndex = 0;
     private List<Question> questions = new ArrayList<>();
-    private CardView answerA, answerB, answerC, answerD;
+    private LinearLayout answerA, answerB, answerC, answerD;
     private TextView answerATxt, answerBTxt, answerCTxt, answerDTxt, questionBoardTxt;
-    private Button nextButton;
+    private Button nextBtn;
     private ImageView logo;
     private int logoPath;
 
     ArrayList<Question> cQuest = new ArrayList<>(Arrays.asList(
-            new Question("Phần mở rộng của file C++ là gì?", ".cpp", new ArrayList<>(Arrays.asList("c", ".cpp", ".java", ".py"))),
-            new Question("Câu lệnh để khai báo biến nguyên trong C++ là gì?", "int", new ArrayList<>(Arrays.asList("str", "float", "int", "char"))),
-            new Question("Phương pháp nào trong C++ dùng để gán giá trị cho một biến?", "=", new ArrayList<>(Arrays.asList("+", "==", "=", "*"))),
-            new Question("Hàm nào được sử dụng để khởi tạo đối tượng trong C++?", "constructor", new ArrayList<>(Arrays.asList("method", "operator", "function", "constructor")))
+            new Question("Phần mở rộng của file C++ là gì?", "B", new ArrayList<>(Arrays.asList("c", ".cpp", ".java", ".py"))),
+            new Question("Câu lệnh để khai báo biến nguyên trong C++ là gì?", "A", new ArrayList<>(Arrays.asList("int", "float", "str", "char"))),
+            new Question("Phương pháp nào trong C++ dùng để gán giá trị cho một biến?", "C", new ArrayList<>(Arrays.asList("+", "==", "=", "*"))),
+            new Question("Hàm nào được sử dụng để khởi tạo đối tượng trong C++?", "D", new ArrayList<>(Arrays.asList("method", "operator", "function", "constructor")))
     ));
 
     ArrayList<Question> pQuest = new ArrayList<>(Arrays.asList(
-            new Question("Phần mở rộng của file Python là gì?", ".py", new ArrayList<>(Arrays.asList(".java", ".cpp", ".py", ".c"))),
-            new Question("Hàm nào dùng để đọc từ một file trong Python?", "open", new ArrayList<>(Arrays.asList("read", "write", "open", "close"))),
-            new Question("Câu lệnh nào dùng để định nghĩa một hàm trong Python?", "def", new ArrayList<>(Arrays.asList("func", "def", "method", "lambda"))),
-            new Question("Phương thức nào không có trong Python?", "new", new ArrayList<>(Arrays.asList("open", "write", "read", "new")))
+            new Question("Phần mở rộng của file Python là gì?", "C", new ArrayList<>(Arrays.asList(".java", ".cpp", ".py", ".c"))),
+            new Question("Hàm nào dùng để đọc từ một file trong Python?", "C", new ArrayList<>(Arrays.asList("read", "write", "open", "close"))),
+            new Question("Câu lệnh nào dùng để định nghĩa một hàm trong Python?", "B", new ArrayList<>(Arrays.asList("func", "def", "method", "lambda"))),
+            new Question("Phương thức nào không có trong Python?", "D", new ArrayList<>(Arrays.asList("open", "write", "read", "new")))
     ));
 
     ArrayList<Question> jQuest = new ArrayList<>(Arrays.asList(
-            new Question("Phần mở rộng của file Java là gì?", ".java", new ArrayList<>(Arrays.asList(".cpp", ".py", ".java", ".c"))),
-            new Question("Lớp nào được sử dụng để nhập các thư viện trong Java?", "import", new ArrayList<>(Arrays.asList("include", "use", "import", "require"))),
-            new Question("Câu lệnh nào dùng để tạo một đối tượng mới từ một lớp trong Java?", "new", new ArrayList<>(Arrays.asList("create", "initialize", "new", "define"))),
-            new Question("Hàm nào không có trong Java?", "main", new ArrayList<>(Arrays.asList("main", "run", "start", "execute")))
+            new Question("Phần mở rộng của file Java là gì?", "C", new ArrayList<>(Arrays.asList(".cpp", ".py", ".java", ".c"))),
+            new Question("Lớp nào được sử dụng để nhập các thư viện trong Java?", "B", new ArrayList<>(Arrays.asList("include", "import", "use", "require"))),
+            new Question("Câu lệnh nào dùng để tạo một đối tượng mới từ một lớp trong Java?", "D", new ArrayList<>(Arrays.asList("create", "initialize", "define", "new"))),
+            new Question("Hàm nào không có trong Java?", "A", new ArrayList<>(Arrays.asList("main", "run", "start", "execute")))
     ));
 
 
@@ -75,12 +76,12 @@ public class QuestionActivity extends AppCompatActivity {
         answerCTxt = findViewById(R.id.answerCTxt);
         answerDTxt = findViewById(R.id.answerDTxt);
         questionBoardTxt = findViewById(R.id.questionBoardTxt);
-        nextButton = findViewById(R.id.nextBtn);
+        nextBtn = findViewById(R.id.nextBtn);
         logoPath = getIntent().getIntExtra("logo", -1);
         if(logoPath!=-1){
             logo.setImageResource(logoPath);
         }
-        questions = cQuest;
+        questions = getSubjectQuestion();
         loadQuestion();
 
         answerA.setOnClickListener(v -> checkAnswer("A"));
@@ -88,7 +89,16 @@ public class QuestionActivity extends AppCompatActivity {
         answerC.setOnClickListener(v -> checkAnswer("C"));
         answerD.setOnClickListener(v -> checkAnswer("D"));
 
-        nextButton.setOnClickListener(v -> loadNextQuestion());
+        nextBtn.setOnClickListener(v -> loadNextQuestion());
+    }
+
+    private List<Question> getSubjectQuestion(){
+        if(logoPath == R.drawable.cpp)
+            return cQuest;
+        if(logoPath == R.drawable.java)
+            return jQuest;
+        else
+            return pQuest;
     }
 
     private void loadQuestion() {
@@ -99,7 +109,6 @@ public class QuestionActivity extends AppCompatActivity {
             answerBTxt.setText(currentQuestion.getAnswers().get(1));
             answerCTxt.setText(currentQuestion.getAnswers().get(2));
             answerDTxt.setText(currentQuestion.getAnswers().get(3));
-
             resetAnswerColors();
         }
     }
@@ -114,8 +123,8 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void updateAnswerColor(String selectedOption, boolean isCorrect) {
-        CardView selectedCardView = null;
-
+        LinearLayout selectedCardView = null;
+        resetAnswerColors();
         switch (selectedOption) {
             case "A":
                 selectedCardView = answerA;
@@ -133,18 +142,18 @@ public class QuestionActivity extends AppCompatActivity {
 
         if (selectedCardView != null) {
             if (isCorrect) {
-                selectedCardView.setCardBackgroundColor(getResources().getColor(R.color.main));
+                selectedCardView.setBackgroundResource(R.drawable.correct_border);
             } else {
-                selectedCardView.setCardBackgroundColor(getResources().getColor(R.color.black));
+                selectedCardView.setBackgroundResource(R.drawable.incorrect_border);
             }
         }
     }
 
     private void resetAnswerColors() {
-        answerA.setCardBackgroundColor(getResources().getColor(R.color.white));
-        answerB.setCardBackgroundColor(getResources().getColor(R.color.white));
-        answerC.setCardBackgroundColor(getResources().getColor(R.color.white));
-        answerD.setCardBackgroundColor(getResources().getColor(R.color.white));
+        answerA.setBackgroundResource(R.drawable.language_border);
+        answerB.setBackgroundResource(R.drawable.language_border);
+        answerC.setBackgroundResource(R.drawable.language_border);
+        answerD.setBackgroundResource(R.drawable.language_border);
     }
 
     private void loadNextQuestion() {
@@ -152,8 +161,9 @@ public class QuestionActivity extends AppCompatActivity {
         if (currentQuestionIndex < questions.size()) {
             loadQuestion();
         } else {
-            // Optionally, handle when there are no more questions
-
+            Intent intent = new Intent(QuestionActivity.this, CompleteActivity.class);
+            finish();
+            startActivity(intent);
         }
     }
 }
