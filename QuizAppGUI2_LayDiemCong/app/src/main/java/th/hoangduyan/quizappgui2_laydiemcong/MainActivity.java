@@ -1,7 +1,10 @@
 package th.hoangduyan.quizappgui2_laydiemcong;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,5 +26,20 @@ public class MainActivity extends AppCompatActivity {
                 .asGif()
                 .load(R.drawable.congrat)
                 .into(intro);
+
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_UP:
+                Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+        return super.onTouchEvent(event);
     }
 }
