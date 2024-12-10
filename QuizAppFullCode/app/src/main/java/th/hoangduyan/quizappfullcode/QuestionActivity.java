@@ -22,65 +22,41 @@ public class QuestionActivity extends AppCompatActivity {
 
     String subject;
     ImageView logo;
-    TextView questionBoard, answerATxt, answerBtxt, answerCTxt, answerDtxt;
+    TextView questionBoard, answerATxt, answerBTxt, answerCTxt, answerDTxt;
     int logoPath;
     ArrayList<Question> questionsList;
+
+    private void getControl(){
+        logo = findViewById(R.id.logo);
+        questionBoard = findViewById(R.id.questionBoard);
+        answerATxt = findViewById(R.id.answerATxt);
+        answerBTxt = findViewById(R.id.answerBTxt);
+        answerCTxt = findViewById(R.id.answerCTxt);
+        answerDTxt = findViewById(R.id.answerDTxt);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_question);
-        logo = findViewById(R.id.logo);
+        getControl();
         logoPath = getIntent().getIntExtra("logo", -1);
         if(logoPath!=-1){
             logo.setImageResource(logoPath);
         }
-        if (logoPath == R.drawable.cpp) {
-            subject = "C++";
-        } else if (logoPath == R.drawable.java) {
-            subject = "Java";
-        } else if (logoPath == R.drawable.python) {
-            subject = "Python";
-        }
-
-        questionsList = loadQuestionsFromJSON(this, subject);
-
-
+        subject = checkSubject(logoPath);
 
     }
 
-    private ArrayList<Question> loadQuestionsFromJSON(Context context, String subject) {
-        ArrayList<Question> questions = new ArrayList<>();
-        try {
-            InputStream inputStream = context.getAssets().open("questions.json");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-
-            String jsonStr = new String(buffer, StandardCharsets.UTF_8);
-            JSONObject jsonObject = new JSONObject(jsonStr);
-
-            // Lấy danh sách câu hỏi theo chủ đề
-            JSONArray questionsArray = jsonObject.getJSONObject("questions").getJSONArray(subject);
-            for (int i = 0; i < questionsArray.length(); i++) {
-                JSONObject questionObj = questionsArray.getJSONObject(i);
-
-                String questionText = questionObj.getString("question_text");
-                String correctAnswer = questionObj.getString("correct_answer");
-                JSONArray wrongAnswersArray = questionObj.getJSONArray("wrong_answers");
-
-                ArrayList<String> wrongAnswers = new ArrayList<>();
-                for (int j = 0; j < wrongAnswersArray.length(); j++) {
-                    wrongAnswers.add(wrongAnswersArray.getString(j));
-                }
-
-                questions.add(new Question(questionText, correctAnswer, wrongAnswers));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return questions;
+    private String checkSubject(int logoPath){
+        if (logoPath == R.drawable.cpp)
+            return "C++";
+        if (logoPath == R.drawable.java)
+            return "Java";
+        if (logoPath == R.drawable.python)
+            return "Python";
+        return null;
     }
+    
 }
