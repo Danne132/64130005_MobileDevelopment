@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout cppChoose;
 
-    public void getContronl(){
+    public void getControl(){
         cppChoose = findViewById(R.id.cppChoose);
     }
 
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        getControl();
         cppChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
