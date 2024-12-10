@@ -2,6 +2,7 @@ package th.hoangduyan.quizappfullcode;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class QuestionActivity extends AppCompatActivity {
     String subject;
     ImageView logo;
     TextView questionBoard, answerATxt, answerBTxt, answerCTxt, answerDTxt;
+    Button
     int logoPath;
     ArrayList<Question> questionsList;
 
@@ -58,5 +60,5 @@ public class QuestionActivity extends AppCompatActivity {
             return "Python";
         return null;
     }
-    
+
 }
