@@ -1,6 +1,8 @@
 package th.hoangduyan.quizappfullcode;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,129 +29,131 @@ import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity {
 
-    ImageView logo;
-    TextView questionBoard, answerATxt, answerBTxt, answerCTxt, answerDTxt;
-    Button nextBtn;
-    CardView answerA, answerB, answerC, answerD;
-    int logoPath, currentQuestionIndex;
-    List<Question> cQuest, jQuest, pQuest;
-    QuestionSubject cSubject, jSubject, pSubject;
+    private int currentQuestionIndex = 0;
+    private List<Question> questions = new ArrayList<>();
+    private CardView answerA, answerB, answerC, answerD;
+    private TextView answerATxt, answerBTxt, answerCTxt, answerDTxt, questionBoardTxt;
+    private Button nextButton;
+    private ImageView logo;
+    private int logoPath;
 
-    private void getControl(){
-        logo = findViewById(R.id.logo);
-        questionBoard = findViewById(R.id.questionBoard);
-        answerATxt = findViewById(R.id.answerATxt);
-        answerBTxt = findViewById(R.id.answerBTxt);
-        answerCTxt = findViewById(R.id.answerCTxt);
-        answerDTxt = findViewById(R.id.answerDTxt);
-        nextBtn = findViewById(R.id.nextBtn);
-        answerA = findViewById(R.id.answerA);
-        answerB = findViewById(R.id.answerB);
-        answerC = findViewById(R.id.answerC);
-        answerD = findViewById(R.id.answerD);
-        cQuest = new ArrayList<>(Arrays.asList(
-                new Question("Phần mở rộng của file C++ là gì?", ".cpp", new ArrayList<>(Arrays.asList("c", ".cpp", ".java", ".py"))),
-                new Question("Câu lệnh để khai báo biến nguyên trong C++ là gì?", "int", new ArrayList<>(Arrays.asList("str", "float", "int", "char"))),
-                new Question("Phương pháp nào trong C++ dùng để gán giá trị cho một biến?", "=", new ArrayList<>(Arrays.asList("+", "==", "=", "*"))),
-                new Question("Hàm nào được sử dụng để khởi tạo đối tượng trong C++?", "constructor", new ArrayList<>(Arrays.asList("method", "operator", "function", "constructor")))
-        ));
-        jQuest = new ArrayList<>(Arrays.asList(
-                new Question("Phần mở rộng của file Python là gì?", ".py", new ArrayList<>(Arrays.asList(".java", ".cpp", ".py", ".c"))),
-                new Question("Hàm nào dùng để đọc từ một file trong Python?", "open", new ArrayList<>(Arrays.asList("read", "write", "open", "close"))),
-                new Question("Câu lệnh nào dùng để định nghĩa một hàm trong Python?", "def", new ArrayList<>(Arrays.asList("func", "def", "method", "lambda"))),
-                new Question("Phương thức nào không có trong Python?", "new", new ArrayList<>(Arrays.asList("open", "write", "read", "new")))
-        ));
-        pQuest = new ArrayList<>(Arrays.asList(
-                new Question("Phần mở rộng của file Java là gì?", ".java", new ArrayList<>(Arrays.asList(".cpp", ".py", ".java", ".c"))),
-                new Question("Lớp nào được sử dụng để nhập các thư viện trong Java?", "import", new ArrayList<>(Arrays.asList("include", "use", "import", "require"))),
-                new Question("Câu lệnh nào dùng để tạo một đối tượng mới từ một lớp trong Java?", "new", new ArrayList<>(Arrays.asList("create", "initialize", "new", "define"))),
-                new Question("Hàm nào không có trong Java?", "main", new ArrayList<>(Arrays.asList("main", "run", "start", "execute")))
-        ));
-        cSubject = new QuestionSubject(cQuest, "C++");
-        jSubject = new QuestionSubject(jQuest, "Java");
-        pSubject = new QuestionSubject(pQuest, "Python");
-    }
+    ArrayList<Question> cQuest = new ArrayList<>(Arrays.asList(
+            new Question("Phần mở rộng của file C++ là gì?", ".cpp", new ArrayList<>(Arrays.asList("c", ".cpp", ".java", ".py"))),
+            new Question("Câu lệnh để khai báo biến nguyên trong C++ là gì?", "int", new ArrayList<>(Arrays.asList("str", "float", "int", "char"))),
+            new Question("Phương pháp nào trong C++ dùng để gán giá trị cho một biến?", "=", new ArrayList<>(Arrays.asList("+", "==", "=", "*"))),
+            new Question("Hàm nào được sử dụng để khởi tạo đối tượng trong C++?", "constructor", new ArrayList<>(Arrays.asList("method", "operator", "function", "constructor")))
+    ));
+
+    ArrayList<Question> pQuest = new ArrayList<>(Arrays.asList(
+            new Question("Phần mở rộng của file Python là gì?", ".py", new ArrayList<>(Arrays.asList(".java", ".cpp", ".py", ".c"))),
+            new Question("Hàm nào dùng để đọc từ một file trong Python?", "open", new ArrayList<>(Arrays.asList("read", "write", "open", "close"))),
+            new Question("Câu lệnh nào dùng để định nghĩa một hàm trong Python?", "def", new ArrayList<>(Arrays.asList("func", "def", "method", "lambda"))),
+            new Question("Phương thức nào không có trong Python?", "new", new ArrayList<>(Arrays.asList("open", "write", "read", "new")))
+    ));
+
+    ArrayList<Question> jQuest = new ArrayList<>(Arrays.asList(
+            new Question("Phần mở rộng của file Java là gì?", ".java", new ArrayList<>(Arrays.asList(".cpp", ".py", ".java", ".c"))),
+            new Question("Lớp nào được sử dụng để nhập các thư viện trong Java?", "import", new ArrayList<>(Arrays.asList("include", "use", "import", "require"))),
+            new Question("Câu lệnh nào dùng để tạo một đối tượng mới từ một lớp trong Java?", "new", new ArrayList<>(Arrays.asList("create", "initialize", "new", "define"))),
+            new Question("Hàm nào không có trong Java?", "main", new ArrayList<>(Arrays.asList("main", "run", "start", "execute")))
+    ));
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_question);
-        getControl();
+
+        logo = findViewById(R.id.logo);
+        answerA = findViewById(R.id.answerA);
+        answerB = findViewById(R.id.answerB);
+        answerC = findViewById(R.id.answerC);
+        answerD = findViewById(R.id.answerD);
+        answerATxt = findViewById(R.id.answerATxt);
+        answerBTxt = findViewById(R.id.answerBTxt);
+        answerCTxt = findViewById(R.id.answerCTxt);
+        answerDTxt = findViewById(R.id.answerDTxt);
+        questionBoardTxt = findViewById(R.id.questionBoardTxt);
+        nextButton = findViewById(R.id.nextBtn);
         logoPath = getIntent().getIntExtra("logo", -1);
         if(logoPath!=-1){
             logo.setImageResource(logoPath);
         }
-        String subject;
-        if(logoPath == R.drawable.cpp)
-            subject = "C++";
-        else if (logoPath == R.drawable.java)
-            subject = "Java";
-        else
-            subject = "Python";
+        questions = cQuest;
+        loadQuestion();
 
+        answerA.setOnClickListener(v -> checkAnswer("A"));
+        answerB.setOnClickListener(v -> checkAnswer("B"));
+        answerC.setOnClickListener(v -> checkAnswer("C"));
+        answerD.setOnClickListener(v -> checkAnswer("D"));
+
+        nextButton.setOnClickListener(v -> loadNextQuestion());
     }
-    void displayQuestion(String subject){
-        List<Question> questions;
-        if (subject.equals("C++")) {
-            questions = cSubject.getQuestions();
-        } else if (subject.equals("Java")) {
-            questions = jSubject.getQuestions();
-        } else {
-            questions = pSubject.getQuestions();
-        }
 
+    private void loadQuestion() {
         if (currentQuestionIndex < questions.size()) {
             Question currentQuestion = questions.get(currentQuestionIndex);
-            questionBoard.setText(currentQuestion.getQuestionText());
+            questionBoardTxt.setText(currentQuestion.getQuestionText());
+            answerATxt.setText(currentQuestion.getAnswers().get(0));
+            answerBTxt.setText(currentQuestion.getAnswers().get(1));
+            answerCTxt.setText(currentQuestion.getAnswers().get(2));
+            answerDTxt.setText(currentQuestion.getAnswers().get(3));
 
-            // Shuffle wrong answers
-            List<String> allAnswers = new ArrayList<>(currentQuestion.getWrongAnswers());
-            allAnswers.add(currentQuestion.getCorrectAnswer());
-            Collections.shuffle(allAnswers);
-
-            answerATxt.setText(allAnswers.get(0));
-            answerBTxt.setText(allAnswers.get(1));
-            answerCTxt.setText(allAnswers.get(2));
-            answerDTxt.setText(allAnswers.get(3));
-
-            answerA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    checkAnswer(questions, 0);
-                }
-            });
-            answerB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    checkAnswer(questions, 1);
-                }
-            });
-            answerC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    checkAnswer(questions, 2);
-                }
-            });
-            answerD.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    checkAnswer(questions, 3);
-                }
-            });
-        } else {
-            // Handle end of questions
+            resetAnswerColors();
         }
     }
 
-    void checkAnswer(List<Question> questions, int selectedOption) {
+    private void checkAnswer(String selectedOption) {
         Question currentQuestion = questions.get(currentQuestionIndex);
-        if (currentQuestion. == selectedOption) {
-            // Correct answer
+        if (selectedOption.equals(currentQuestion.getCorrectAnswer())) {
+            updateAnswerColor(selectedOption, true);
         } else {
-            // Wrong answer
+            updateAnswerColor(selectedOption, false);
         }
+    }
+
+    private void updateAnswerColor(String selectedOption, boolean isCorrect) {
+        CardView selectedCardView = null;
+
+        switch (selectedOption) {
+            case "A":
+                selectedCardView = answerA;
+                break;
+            case "B":
+                selectedCardView = answerB;
+                break;
+            case "C":
+                selectedCardView = answerC;
+                break;
+            case "D":
+                selectedCardView = answerD;
+                break;
+        }
+
+        if (selectedCardView != null) {
+            if (isCorrect) {
+                selectedCardView.setCardBackgroundColor(getResources().getColor(R.color.main));
+            } else {
+                selectedCardView.setCardBackgroundColor(getResources().getColor(R.color.black));
+            }
+        }
+    }
+
+    private void resetAnswerColors() {
+        answerA.setCardBackgroundColor(getResources().getColor(R.color.white));
+        answerB.setCardBackgroundColor(getResources().getColor(R.color.white));
+        answerC.setCardBackgroundColor(getResources().getColor(R.color.white));
+        answerD.setCardBackgroundColor(getResources().getColor(R.color.white));
+    }
+
+    private void loadNextQuestion() {
         currentQuestionIndex++;
-        displayQuestion(questions);
+        if (currentQuestionIndex < questions.size()) {
+            loadQuestion();
+        } else {
+            // Optionally, handle when there are no more questions
+
+        }
     }
 }

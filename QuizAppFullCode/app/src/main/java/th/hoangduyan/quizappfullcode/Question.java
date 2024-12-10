@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Question {
     private String questionTxt;
     private String correctAnswer;
-    private ArrayList<String> wrongAnswers;
+    private ArrayList<String> answers;
 
-    public Question(String questionTxt, String correctAnswer, ArrayList<String> wrongAnswers) {
+    public Question(String questionTxt, String correctAnswer, ArrayList<String> answers) {
         this.questionTxt = questionTxt;
         this.correctAnswer = correctAnswer;
-        this.wrongAnswers = wrongAnswers;
+        this.answers = answers;
     }
 
     public String getQuestionText() {
@@ -21,8 +21,8 @@ public class Question {
         return correctAnswer;
     }
 
-    public ArrayList<String> getWrongAnswers() {
-        return wrongAnswers;
+    public ArrayList<String> getAnswers() {
+        return answers;
     }
 
 }

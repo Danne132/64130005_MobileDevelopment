@@ -7,13 +7,14 @@ import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    LinearLayout cppChoose, javaChoose, pythonChoose;
+    CardView cppChoose, javaChoose, pythonChoose;
 
     public void getControl(){
         cppChoose = findViewById(R.id.cppChoose);
