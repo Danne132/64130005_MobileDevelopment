@@ -2,8 +2,10 @@ package th.hoangduyan.quizappfullcode;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,14 +20,17 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class QuestionActivity extends AppCompatActivity {
 
     String subject;
     ImageView logo;
     TextView questionBoard, answerATxt, answerBTxt, answerCTxt, answerDTxt;
-    Button
+    Button nextBtn;
+    LinearLayout answerA, answerB, answerC, answerD;
     int logoPath;
+    int currentIndex = 0;
     ArrayList<Question> questionsList;
 
     private void getControl(){
@@ -35,6 +40,11 @@ public class QuestionActivity extends AppCompatActivity {
         answerBTxt = findViewById(R.id.answerBTxt);
         answerCTxt = findViewById(R.id.answerCTxt);
         answerDTxt = findViewById(R.id.answerDTxt);
+        nextBtn = findViewById(R.id.nextBtn);
+        answerA = findViewById(R.id.answerA);
+        answerB = findViewById(R.id.answerB);
+        answerC = findViewById(R.id.answerC);
+        answerD = findViewById(R.id.answerD);
     }
 
     @Override
@@ -47,18 +57,7 @@ public class QuestionActivity extends AppCompatActivity {
         if(logoPath!=-1){
             logo.setImageResource(logoPath);
         }
-        subject = checkSubject(logoPath);
 
-    }
-
-    private String checkSubject(int logoPath){
-        if (logoPath == R.drawable.cpp)
-            return "C++";
-        if (logoPath == R.drawable.java)
-            return "Java";
-        if (logoPath == R.drawable.python)
-            return "Python";
-        return null;
     }
 
 }
