@@ -3,6 +3,5 @@
     <style name="textStyle">
         <item name="android:textColor">@color/text</item>
         <item name="android:textSize">15sp</item>
-
     </style>
 </resources>
