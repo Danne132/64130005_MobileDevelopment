@@ -9,6 +9,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ImageView intro = findViewById(R.id.intro);
-
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.congrat)
+                .into(intro);
     }
 }
