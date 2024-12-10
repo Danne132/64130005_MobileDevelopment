@@ -104,14 +104,15 @@
             android:paddingVertical="20dp"
             android:paddingHorizontal="30dp"
             android:layout_marginBottom="30dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
-                android:text="D"
+                android:text="C"
+                android:textColor="@color/text"
                 android:textSize="15dp"
-                android:textStyle="bold"
-                android:textColor="@color/text"/>
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/answerCTxt"
                 android:layout_width="0dp"
