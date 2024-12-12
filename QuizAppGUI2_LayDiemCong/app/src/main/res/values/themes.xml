@@ -3,6 +3,7 @@
     <style name="Base.Theme.QuizAppGUI2_LayDiemCong" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="cardBackgroundColor">@android:color/transparent</item>
     </style>
 
     <style name="Theme.QuizAppGUI2_LayDiemCong" parent="Base.Theme.QuizAppGUI2_LayDiemCong" />
