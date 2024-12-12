@@ -80,9 +80,10 @@ public class QuestionActivity extends AppCompatActivity {
     View.OnClickListener nextQues = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            currentQuestion++;
             if(currentQuestion > questionList.size()-1){
-                boolean[] check = new boolean[]{};
-                for(int i = 0; i < questionList.size(); i++){
+                boolean[] check = new boolean[questionList.size()];
+                for(int i = 0; i < questionList.size()-1; i++){
                     check[i] = questionList.get(i).isTrue();
                 }
                 Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
@@ -92,7 +93,6 @@ public class QuestionActivity extends AppCompatActivity {
                 finish();
             } else {
                 setButtonStateOn();
-                currentQuestion++;
                 displayQuestion(currentQuestion);
                 resultTxt.setText("");
             }
