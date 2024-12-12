@@ -8,12 +8,22 @@ public class Question {
     String question, correctAnswer;
     List<String> answers;
     int image;
+    boolean isTrue;
 
     public Question(String question, String correctAnswer, List<String> answers, int image) {
         this.question = question;
         this.correctAnswer = correctAnswer;
         this.answers = answers;
         this.image = image;
+        isTrue = false;
+    }
+
+    public boolean isTrue() {
+        return isTrue;
+    }
+
+    public void setTrue(boolean aTrue) {
+        isTrue = aTrue;
     }
 
     public String getQuestion() {

@@ -5,4 +5,5 @@
     <color name="buttonColor">#5D9BA4</color>
     <color name="correct">#27A41C</color>
     <color name="incorrect">#E22121</color>
+    <color name="unenable">#204A50</color>
 </resources>

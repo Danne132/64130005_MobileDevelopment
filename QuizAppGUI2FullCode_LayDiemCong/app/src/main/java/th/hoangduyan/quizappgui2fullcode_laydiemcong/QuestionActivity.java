@@ -1,5 +1,6 @@
 package th.hoangduyan.quizappgui2fullcode_laydiemcong;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ public class QuestionActivity extends AppCompatActivity {
     private List<TextView> answerList;
     private List<CardView> answerLayoutList;
     private int currentQuestion;
+    private int score;
 
     private void getControl(){
         quesTxt = findViewById(R.id.quesTxt);
@@ -35,6 +37,7 @@ public class QuestionActivity extends AppCompatActivity {
         answerCTxt = findViewById(R.id.answerCTxt);
         answerDTxt = findViewById(R.id.answerDTxt);
         quesImg = findViewById(R.id.quesImg);
+        resultTxt = findViewById(R.id.resultTxt);
         answerALayout = findViewById(R.id.answerALayout);
         answerBLayout = findViewById(R.id.answerBLayout);
         answerCLayout = findViewById(R.id.answerCLayout);
@@ -44,6 +47,7 @@ public class QuestionActivity extends AppCompatActivity {
         answerLayoutList = new ArrayList<>(Arrays.asList(answerALayout, answerBLayout, answerCLayout, answerDLayout));
         createQuestion();
         currentQuestion = 0;
+        score = 0;
     }
 
     @Override
@@ -53,16 +57,80 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question);
         getControl();
         nextBtn.setOnClickListener(nextQues);
+        for(int i = 0; i < answerList.size(); i++){
+            int finalI = i;
+            answerList.get(i).setOnClickListener(v -> {
+                if(checkAnswer(finalI)){
+                    answerLayoutList.get(finalI).setCardBackgroundColor(getResources().getColor(R.color.correct));
+                    resultTxt.setText("Correct!");
+                    resultTxt.setTextColor(getResources().getColor(R.color.correct));
+                    score++;
+                    questionList.get(currentQuestion).isTrue = true;
+                } else{
+                    answerLayoutList.get(finalI).setCardBackgroundColor(getResources().getColor(R.color.incorrect));
+                    resultTxt.setText("InCorrect!");
+                    resultTxt.setTextColor(getResources().getColor(R.color.incorrect));
+                }
+                setButtonStateOff(finalI);
+            });
+        }
         displayQuestion(currentQuestion);
     }
 
     View.OnClickListener nextQues = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            currentQuestion++;
-            displayQuestion(currentQuestion);
+            if(currentQuestion > questionList.size()-1){
+                boolean[] check = new boolean[]{};
+                for(int i = 0; i < questionList.size(); i++){
+                    check[i] = questionList.get(i).isTrue();
+                }
+                Intent intent = new Intent(QuestionActivity.this, ResultActivity.class);
+                intent.putExtra("score", score);
+                intent.putExtra("checkTF", check);
+                startActivity(intent);
+                finish();
+            } else {
+                setButtonStateOn();
+                currentQuestion++;
+                displayQuestion(currentQuestion);
+                resultTxt.setText("");
+            }
         }
     };
+
+    private boolean isCorrectAnswer(int index){
+        if(answerList.get(index).getText().equals(questionList.get(currentQuestion).getCorrectAnswer())){
+            answerLayoutList.get(index).setCardBackgroundColor(getResources().getColor(R.color.correct));
+            return true;
+        }
+        return false;
+    }
+
+    private void setButtonStateOff(int chooseIndex){
+        for(TextView tv : answerList){
+            tv.setEnabled(false);
+        }
+        for(int i = 0; i < answerLayoutList.size(); i++){
+            if(!isCorrectAnswer(i) && answerLayoutList.get(i)!=answerLayoutList.get(chooseIndex))
+                answerLayoutList.get(i).setCardBackgroundColor(getResources().getColor(R.color.unenable));
+        }
+    }
+
+    private void setButtonStateOn(){
+        for(TextView tv : answerList){
+            tv.setEnabled(true);
+        }
+        for(CardView cv : answerLayoutList){
+            cv.setCardBackgroundColor(getResources().getColor(R.color.buttonColor));
+        }
+    }
+
+    private boolean checkAnswer(int index){
+        if(answerList.get(index).getText().equals(questionList.get(currentQuestion).getCorrectAnswer()))
+            return true;
+        return false;
+    }
 
     private void displayQuestion(int currentQuestion){
         Question ques = questionList.get(currentQuestion);
