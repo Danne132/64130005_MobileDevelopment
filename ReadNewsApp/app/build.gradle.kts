@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.okhttp3)
     implementation(libs.glide)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     annotationProcessor(libs.glideCompiler)
     implementation(libs.appcompat)
     implementation(libs.material)

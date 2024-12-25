@@ -47,7 +47,6 @@ public class NewsListFragment extends Fragment {
             categoryUrl = getArguments().getString(ARG_URL);
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
