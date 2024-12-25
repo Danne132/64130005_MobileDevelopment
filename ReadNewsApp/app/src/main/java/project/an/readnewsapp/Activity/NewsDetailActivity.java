@@ -23,10 +23,6 @@ public class NewsDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
 
-        TextView titleTextView = findViewById(R.id.detailTitleTextView);
-        ImageView imageView = findViewById(R.id.detailImageView);
-        TextView contentTextView = findViewById(R.id.detailContentTextView);
-        TextView pubDateTextView = findViewById(R.id.detailPubDateTextView);
 
         // Nhận dữ liệu từ intent
         String title = getIntent().getStringExtra("title");
@@ -38,9 +34,5 @@ public class NewsDetailActivity extends AppCompatActivity {
         Spanned plainText = Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY);
 
         // Gán dữ liệu vào giao diện
-        titleTextView.setText(title);
-        pubDateTextView.setText(pubDate);
-        contentTextView.setText(plainText);
-        Glide.with(this).load(imageUrl).into(imageView);
     }
 }

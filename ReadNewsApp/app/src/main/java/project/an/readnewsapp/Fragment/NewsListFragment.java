@@ -19,6 +19,7 @@ import project.an.readnewsapp.Adapter.NewsListAdapter;
 import project.an.readnewsapp.Fragment.Navigation.HomeFragment;
 import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
+import project.an.readnewsapp.RSSUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,8 +57,8 @@ public class NewsListFragment extends Fragment {
         // Tải dữ liệu RSS
         new Thread(() -> {
             try {
-                String rssData = HomeFragment.fetchRSS(categoryUrl);
-                List<NewsItem> rssItems = HomeFragment.parseRSS(rssData);
+                String rssData = RSSUtils.fetchRSS(categoryUrl);
+                List<NewsItem> rssItems = RSSUtils.parseRSS(rssData);
 
                 getActivity().runOnUiThread(() -> {
                     NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext());
