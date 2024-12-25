@@ -7,12 +7,12 @@ public class RSSItem {
     private String pubDate;     // Thời gian xuất bản
     private String link;        // Đường dẫn để chia sẻ
 
-    public RSSItem(String title, String imageUrl, String content, String pubDate, String link) {
+    public RSSItem(String title, String imageUrl, String content ,String pubDate, String link) {
         this.title = title;
         this.imageUrl = imageUrl;
-        this.content = content;
         this.pubDate = pubDate;
         this.link = link;
+        this.content = content;
     }
 
     // Getter và Setter

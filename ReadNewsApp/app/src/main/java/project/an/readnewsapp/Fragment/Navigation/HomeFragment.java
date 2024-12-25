@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
         tabCategories = view.findViewById(R.id.tabCategories);
         viewNewsList = view.findViewById(R.id.viewNewsList);
         categoriesList = new ArrayList<>(Arrays.asList(
-                new Categories("AI/ML", "https://techcrunch.com/category/artificial-intelligence/feed/"),
+                new Categories("AI/ML", "https://machinelearningmastery.com/blog/feed/"),
                 new Categories("Web Dev", "https://www.smashingmagazine.com/feed/"),
                 new Categories("Technology", "https://www.cnet.com/rss/news/"),
                 new Categories("Security", "https://techcrunch.com/category/security/feed/")

@@ -1,5 +1,7 @@
 package project.an.readnewsapp;
 
+import android.util.Log;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -60,11 +62,13 @@ public class RSSUtils {
                     String pubDate = getElementValue(itemElement, "pubDate");
 
                     // Giả sử hình ảnh nằm trong thẻ <media:content> hoặc trong <description>
-                    String imageUrl = getElementValue(itemElement, "media:thumbnail");
+                    String imageUrl = extractImageFromMediaContent(itemElement, "media:content");
                     if (imageUrl == null || imageUrl.isEmpty()) {
-                        imageUrl = extractImageFromDescription(description);
+//                        imageUrl = extractImageFromDescription(description);
+                        imageUrl = extractImageFromMediaContent(itemElement, "enclosure");
                     }
-
+                    if(imageUrl!=null) Log.i("Main", "Get image success");
+                    else Log.i("Main", "Failed to get image");
                     NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link);
                     newsItems.add(newsItem);
                 }
@@ -98,4 +102,20 @@ public class RSSUtils {
         }
         return null;
     }
+
+    private static String extractImageFromMediaContent(Element parent, String tagName) {
+        NodeList mediaContentList = parent.getElementsByTagName(tagName);
+        for (int i = 0; i < mediaContentList.getLength(); i++) {
+            Node node = mediaContentList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element mediaElement = (Element) node;
+                if (mediaElement.hasAttribute("url")) {
+                    return mediaElement.getAttribute("url");
+                }
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy thẻ hoặc thuộc tính "url"
+    }
+
+
 }
