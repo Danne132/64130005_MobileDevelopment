@@ -85,9 +85,9 @@ public class HomeFragment extends Fragment {
         viewNewsList = view.findViewById(R.id.viewNewsList);
         categoriesList = new ArrayList<>(Arrays.asList(
                 new Categories("AI/ML", "https://machinelearningmastery.com/blog/feed/"),
-                new Categories("Web Dev", "https://www.smashingmagazine.com/feed/"),
-                new Categories("Technology", "https://www.cnet.com/rss/news/"),
-                new Categories("Security", "https://techcrunch.com/category/security/feed/")
+                new Categories("Web Dev", "https://htopskills.com/feed/"),
+                new Categories("Technology", "https://www.engadget.com/rss.xml"),
+                new Categories("Security", "https://hackernoon.com/feed")
         ));
         adapter = new CategoryViewPageAdapter(this, categoriesList);
         viewNewsList.setAdapter(adapter);

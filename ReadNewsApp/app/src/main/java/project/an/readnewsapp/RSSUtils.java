@@ -2,7 +2,11 @@ package project.an.readnewsapp;
 
 import android.util.Log;
 
-import org.w3c.dom.Document;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+
+import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -47,7 +51,7 @@ public class RSSUtils {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new java.io.ByteArrayInputStream(rssData.getBytes()));
+            org.w3c.dom.Document document = builder.parse(new java.io.ByteArrayInputStream(rssData.getBytes()));
 
             NodeList itemNodes = document.getElementsByTagName("item");
             for (int i = 0; i < itemNodes.getLength(); i++) {
@@ -60,12 +64,15 @@ public class RSSUtils {
                     String link = getElementValue(itemElement, "link");
                     String description = getElementValue(itemElement, "description");
                     String pubDate = getElementValue(itemElement, "pubDate");
+                    String content = getElementValue(itemElement, "content:encoded");
 
                     // Giả sử hình ảnh nằm trong thẻ <media:content> hoặc trong <description>
                     String imageUrl = extractImageFromMediaContent(itemElement, "media:content");
                     if (imageUrl == null || imageUrl.isEmpty()) {
-//                        imageUrl = extractImageFromDescription(description);
-                        imageUrl = extractImageFromMediaContent(itemElement, "enclosure");
+                        imageUrl = extractFirstImage(description);
+                    }
+                    if (imageUrl == null || imageUrl.isEmpty()){
+                        imageUrl = extractFirstImage(content);
                     }
                     if(imageUrl!=null) Log.i("Main", "Get image success");
                     else Log.i("Main", "Failed to get image");
@@ -89,19 +96,6 @@ public class RSSUtils {
         return null;
     }
 
-    // Lấy URL hình ảnh từ nội dung <description> (nếu cần)
-    private static String extractImageFromDescription(String description) {
-        if (description == null) return null;
-        int imgStart = description.indexOf("<img");
-        if (imgStart != -1) {
-            int srcStart = description.indexOf("src=\"", imgStart);
-            int srcEnd = description.indexOf("\"", srcStart + 5);
-            if (srcStart != -1 && srcEnd != -1) {
-                return description.substring(srcStart + 5, srcEnd);
-            }
-        }
-        return null;
-    }
 
     private static String extractImageFromMediaContent(Element parent, String tagName) {
         NodeList mediaContentList = parent.getElementsByTagName(tagName);
@@ -117,5 +111,21 @@ public class RSSUtils {
         return null; // Trả về null nếu không tìm thấy thẻ hoặc thuộc tính "url"
     }
 
+    private static String extractFirstImage(String htmlContent) {
+        try {
+            Document doc = Jsoup.parse(htmlContent);
+            // Lấy tất cả các thẻ img
+            Elements imgs = doc.select("img");
+            for (org.jsoup.nodes.Element img : imgs) {
+                String src = img.attr("src");
+                if (src != null && !src.isEmpty()) {
+                    return src; // Trả về hình ảnh đầu tiên
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; // Trả về null nếu không tìm thấy hình ảnh
+    }
 
 }
