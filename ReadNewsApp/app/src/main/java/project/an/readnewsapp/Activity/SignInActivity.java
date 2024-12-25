@@ -119,7 +119,7 @@ public class SignInActivity extends AppCompatActivity {
     private void showResultDialog(String email, String pass){
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.notification_dialog);
+        dialog.setContentView(R.layout.dialog_notification);
         ImageView closed = dialog.findViewById(R.id.closedDialog);
         ImageView resultIcon = dialog.findViewById(R.id.resultIcon);
         TextView resultText = dialog.findViewById(R.id.resultText);
@@ -133,7 +133,7 @@ public class SignInActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         resultIcon.setVisibility(View.VISIBLE);
                         if (task.isSuccessful()) {
-                            resultIcon.setImageResource(R.drawable.baseline_check_circle_24);
+                            resultIcon.setImageResource(R.drawable.icon_check_circle);
                             resultText.setText("Đăng nhập thành công");
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -141,7 +141,7 @@ public class SignInActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
-                            resultIcon.setImageResource(R.drawable.baseline_false_circle_24);
+                            resultIcon.setImageResource(R.drawable.icon_false_circle);
                             resultText.setText("Đăng nhập thất bại");
 //                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
 //                                @Override

@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:src="@drawable/bookmark"
+                android:src="@drawable/icon_bookmark"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

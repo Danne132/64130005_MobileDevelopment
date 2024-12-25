@@ -53,7 +53,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/user" />
+                    android:src="@drawable/icon_user" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputUserSignUp"
@@ -96,7 +96,7 @@
                     android:id="@+id/iconEmailSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/envelope" />
+                    android:src="@drawable/icon_envelope" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputEmailSignUp"
@@ -139,7 +139,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/padlock" />
+                    android:src="@drawable/icon_padlock" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputPassSignUp"
@@ -182,7 +182,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/padlock" />
+                    android:src="@drawable/icon_padlock" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputConfirmPassSignUp"

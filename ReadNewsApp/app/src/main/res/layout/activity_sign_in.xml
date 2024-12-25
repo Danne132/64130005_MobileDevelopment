@@ -51,7 +51,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/envelope" />
+                    android:src="@drawable/icon_envelope" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputEmailSignIn"
@@ -92,7 +92,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/padlock" />
+                    android:src="@drawable/icon_padlock" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputPassSignIn"

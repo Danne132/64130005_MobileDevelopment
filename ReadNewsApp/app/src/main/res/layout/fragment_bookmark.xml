@@ -51,12 +51,12 @@
             <LinearLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/circle"
+                android:background="@drawable/shape_circle"
                 android:gravity="center">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/bookmark_empty"/>
+                    android:src="@drawable/icon_bookmark_empty"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
