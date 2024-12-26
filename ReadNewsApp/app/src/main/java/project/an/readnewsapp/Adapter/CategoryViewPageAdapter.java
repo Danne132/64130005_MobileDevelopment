@@ -24,8 +24,11 @@ public class CategoryViewPageAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         // Kiểm tra rằng vị trí hợp lệ
         if (position >= 0 && position < categories.size()) {
-            String url = categories.get(position).getUrl();
-            return NewsListFragment.newInstance(url);
+            if (categories.get(position).getUrl()!=null){
+                String url = categories.get(position).getUrl();
+                return NewsListFragment.newInstance(url);
+            }
+            else return new RandomeTopicFragment();
         } else {
             // Nếu vị trí không hợp lệ, trả về một Fragment mặc định hoặc thông báo lỗi
             return new RandomeTopicFragment(); // Hoặc xử lý lỗi khác

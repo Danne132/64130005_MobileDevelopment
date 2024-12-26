@@ -106,6 +106,7 @@ public class HomeFragment extends Fragment {
         viewNewsList = view.findViewById(R.id.viewNewsList);
         newsList = new ArrayList<>();
         categoriesList = new ArrayList<>(Arrays.asList(
+                new Categories("Random", null),
                 new Categories("AI/ML", "https://machinelearningmastery.com/blog/feed/"),
                 new Categories("Software", "https://dev.to/feed"),
                 new Categories("Technology", "https://www.engadget.com/rss.xml"),
@@ -194,6 +195,5 @@ public class HomeFragment extends Fragment {
 
         }
     }
-
 
 }
