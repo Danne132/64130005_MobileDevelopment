@@ -2,6 +2,7 @@ package project.an.readnewsapp.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,7 @@ public class NewsListFragment extends Fragment {
     private String categoryUrl;
     private RecyclerView recyclerView;
     private NewsListAdapter adapter;
+    private boolean isLoading = false;
 
     public static NewsListFragment newInstance(String url) {
         NewsListFragment fragment = new NewsListFragment();

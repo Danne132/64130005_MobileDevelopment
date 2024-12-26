@@ -1,15 +1,24 @@
 package project.an.readnewsapp.Models;
 
 public class NewsItem {
-    String title, imgUrl,pupDate, link;
+    String title, imgUrl,pupDate, link, content;
     boolean isSave;
 
-    public NewsItem(String title, String imgUrl, String pupDate, String link) {
+    public NewsItem(String title, String imgUrl, String pupDate, String link, String content) {
         this.title = title;
         this.imgUrl = imgUrl;
         this.pupDate = pupDate;
         this.link = link;
+        this.content = content;
         this.isSave = false;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getTitle() {

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import project.an.readnewsapp.Activity.NewsDetailActivity;
 import project.an.readnewsapp.Models.NewsItem;
+import project.an.readnewsapp.NewsDiffCallBack;
 import project.an.readnewsapp.R;
 
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>  {
@@ -52,6 +54,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
             intent.putExtra("title", newsItem.getTitle());
             intent.putExtra("imageUrl", newsItem.getImgUrl());
             intent.putExtra("link", newsItem.getLink());
+            intent.putExtra("content", newsItem.getContent());
             intent.putExtra("pubDate", newsItem.getPupDate());
             context.startActivity(intent);
         });
@@ -65,12 +68,21 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     static class NewsViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         ImageView imageView;
+        ImageView bookmark;
 
         public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleNews);
             imageView = itemView.findViewById(R.id.imageNews);
+            bookmark = imageView.findViewById(R.id.bookMark);
         }
+    }
+
+    public void updateNewsList(List<NewsItem> newItems) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new NewsDiffCallBack(newsItems, newItems));
+        newsItems.clear();
+        newsItems.addAll(newItems);
+        diffResult.dispatchUpdatesTo(this);
     }
 
 }

@@ -31,7 +31,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         String pubDate = getIntent().getStringExtra("pubDate");
 
         //Chuyển hóa các thẻ HTML
-        Spanned plainText = Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY);
+//        Spanned plainText = Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY);
 
         // Gán dữ liệu vào giao diện
     }

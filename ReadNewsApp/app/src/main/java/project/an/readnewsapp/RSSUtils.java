@@ -66,7 +66,6 @@ public class RSSUtils {
                     String description = getElementValue(itemElement, "description");
                     String pubDate = getElementValue(itemElement, "pubDate");
                     String content = getElementValue(itemElement, "content:encoded");
-
                     // Giả sử hình ảnh nằm trong thẻ <media:content> hoặc trong <description>
                     String imageUrl = extractImageFromMediaContent(itemElement, "media:content");
                     if (imageUrl == null || imageUrl.isEmpty()) {
@@ -77,7 +76,7 @@ public class RSSUtils {
                     }
                     if(imageUrl!=null) Log.i("Main", "Get image success");
                     else Log.i("Main", "Failed to get image");
-                    NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link);
+                    NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link, content);
                     newsItems.add(newsItem);
                     HomeFragment.newsList.add(newsItem);
                 }
