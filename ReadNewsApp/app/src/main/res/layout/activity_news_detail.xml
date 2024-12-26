@@ -11,10 +11,10 @@
     <ImageView
         android:id="@+id/imageDetailNews"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="400dp"
         android:src="@drawable/place_holder"
         app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         />
     <RelativeLayout
         android:id="@+id/firstLayoutDetailNews"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/icon_bookmark"
+            android:src="@drawable/icon_bookmark_detail"
             />
     </RelativeLayout>
     <ImageView
@@ -48,9 +48,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="350dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginHorizontal="20dp"
         android:text="An Interview With the Target Home Depot Hacker"
         style="@style/TitleStyle"
         android:textColor="@color/white"
         />
-    <
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
