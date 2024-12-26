@@ -21,6 +21,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import project.an.readnewsapp.Fragment.Navigation.HomeFragment;
 import project.an.readnewsapp.Models.NewsItem;
 
 public class RSSUtils {
@@ -78,6 +79,7 @@ public class RSSUtils {
                     else Log.i("Main", "Failed to get image");
                     NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link);
                     newsItems.add(newsItem);
+                    HomeFragment.newsList.add(newsItem);
                 }
             }
         } catch (Exception e) {

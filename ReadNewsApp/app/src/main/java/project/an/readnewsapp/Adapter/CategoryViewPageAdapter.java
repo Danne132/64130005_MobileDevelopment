@@ -16,7 +16,7 @@ public class CategoryViewPageAdapter extends FragmentStateAdapter {
 
     public CategoryViewPageAdapter(@NonNull Fragment fragment, List<Categories> categories) {
         super(fragment);
-        this.categories = categories != null ? categories : new ArrayList<>();  // Đảm bảo categories không null
+        this.categories = categories != null ? categories : new ArrayList<>();// Đảm bảo categories không null
     }
 
     @NonNull
