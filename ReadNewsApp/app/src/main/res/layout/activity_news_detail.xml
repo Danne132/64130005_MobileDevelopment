@@ -6,25 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.NewsDetailActivity"
+    android:background="@color/white"
     >
     <ImageView
+        android:id="@+id/imageDetailNews"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:src="@drawable/place_holder"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitXY"
         />
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/firstLayoutDetailNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="70dp"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="30dp">
+        android:layout_marginHorizontal="20dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:src="@drawable/icon_left"
             />
-    </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/icon_bookmark"
+            />
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/firstLayoutDetailNews"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icon_share"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="An Interview With the Target Home Depot Hacker"
+        style="@style/TitleStyle"
+        android:textColor="@color/white"
+        />
+    <
 </androidx.constraintlayout.widget.ConstraintLayout>
