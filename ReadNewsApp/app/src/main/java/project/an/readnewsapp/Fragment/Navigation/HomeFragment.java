@@ -1,18 +1,32 @@
 package project.an.readnewsapp.Fragment.Navigation;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -34,6 +48,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,6 +56,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import project.an.readnewsapp.Activity.MainActivity;
 import project.an.readnewsapp.Models.Categories;
 import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
@@ -57,6 +73,8 @@ public class HomeFragment extends Fragment {
     List<Categories> categoriesList;
     CategoryViewPageAdapter adapter;
     OkHttpClient client;
+    public static int RecordAudioRequestCode = 1;
+    public static List<NewsItem> newsList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +93,9 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getControl(view);
         setupView();
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED){
+            checkPermission();
+        }
     }
 
     private void getControl(View view){
@@ -83,14 +104,24 @@ public class HomeFragment extends Fragment {
         micro = view.findViewById(R.id.micro);
         tabCategories = view.findViewById(R.id.tabCategories);
         viewNewsList = view.findViewById(R.id.viewNewsList);
+        newsList = new ArrayList<>();
         categoriesList = new ArrayList<>(Arrays.asList(
                 new Categories("AI/ML", "https://machinelearningmastery.com/blog/feed/"),
-                new Categories("Web Dev", "https://htopskills.com/feed/"),
+                new Categories("Software", "https://dev.to/feed"),
                 new Categories("Technology", "https://www.engadget.com/rss.xml"),
                 new Categories("Security", "https://hackernoon.com/feed")
         ));
         adapter = new CategoryViewPageAdapter(this, categoriesList);
         viewNewsList.setAdapter(adapter);
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED){
+            checkPermission();
+        }
+        micro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speakNow(v);
+            }
+        });
     }
 
     private void setupView(){
@@ -128,6 +159,41 @@ public class HomeFragment extends Fragment {
         }
     };
 
+    private void speakNow(View view){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 5);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "start listening...");
+        startActivityForResult(intent, 111);
+    }
+
+    private void checkPermission() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                    Manifest.permission.RECORD_AUDIO
+            }, RecordAudioRequestCode);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == RecordAudioRequestCode && grantResults.length > 0){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(getContext(), "Permission granted", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 111 && resultCode == RESULT_OK){
+            inputSearch.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
+
+        }
+    }
 
 
 }
