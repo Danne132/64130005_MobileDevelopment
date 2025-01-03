@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,7 +17,6 @@ import java.util.List;
 
 import project.an.readnewsapp.Activity.NewsDetailActivity;
 import project.an.readnewsapp.Models.NewsItem;
-import project.an.readnewsapp.NewsDiffCallBack;
 import project.an.readnewsapp.R;
 
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>  {
@@ -78,11 +76,6 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         }
     }
 
-    public void updateNewsList(List<NewsItem> newItems) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new NewsDiffCallBack(newsItems, newItems));
-        newsItems.clear();
-        newsItems.addAll(newItems);
-        diffResult.dispatchUpdatesTo(this);
-    }
+
 
 }

@@ -16,6 +16,13 @@
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="centerCrop"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageDetailNews"
+        android:background="#80000000"
+        />
     <RelativeLayout
         android:id="@+id/firstLayoutDetailNews"
         android:layout_width="match_parent"
@@ -25,12 +32,14 @@
         android:orientation="horizontal"
         android:layout_marginHorizontal="20dp">
         <ImageView
+            android:id="@+id/backToHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:src="@drawable/icon_left"
             />
         <ImageView
+            android:id="@+id/bookmarkDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -38,6 +47,7 @@
             />
     </RelativeLayout>
     <ImageView
+        android:id="@+id/shareNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/firstLayoutDetailNews"
@@ -46,15 +56,49 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/icon_share"/>
     <TextView
+        android:id="@+id/categoryDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/titleDetailTxt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
+        android:background="@drawable/border_tab_detail"
+        style="@style/TabSelectedTextStyle"
+        android:text="AI/ML"
+        />
+    <TextView
+        android:id="@+id/titleDetailTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="350dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageDetailNews"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="50dp"
         android:text="An Interview With the Target Home Depot Hacker"
         style="@style/TitleStyle"
         android:textColor="@color/white"
         />
-    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/imageDetailNews"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:id="@+id/pubDateDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_semi_bold"
+            android:textSize="16dp"
+            android:textColor="#333647"
+            android:text="November 14, 2024"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
