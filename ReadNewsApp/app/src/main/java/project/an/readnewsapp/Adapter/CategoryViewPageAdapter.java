@@ -26,7 +26,8 @@ public class CategoryViewPageAdapter extends FragmentStateAdapter {
         if (position >= 0 && position < categories.size()) {
             if (categories.get(position).getUrl()!=null){
                 String url = categories.get(position).getUrl();
-                return NewsListFragment.newInstance(url);
+                String name = categories.get(position).getTitle();
+                return NewsListFragment.newInstance(url, name);
             }
             else return new RandomeTopicFragment();
         } else {

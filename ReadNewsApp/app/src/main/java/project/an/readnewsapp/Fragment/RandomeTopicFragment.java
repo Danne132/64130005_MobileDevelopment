@@ -59,7 +59,7 @@ public class RandomeTopicFragment extends Fragment {
                 List<NewsItem> rssItems = HomeFragment.newsList;
 
                 getActivity().runOnUiThread(() -> {
-                    NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext());
+                    NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext(), null);
                     recyclerViewAllNews.setAdapter(adapter);
                 });
                 Log.d("RSSFragment", "RSS Data: " + rssData);

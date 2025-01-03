@@ -1,5 +1,10 @@
 package project.an.readnewsapp.Models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class NewsItem {
     String title, imgUrl,pupDate, link, content;
     boolean isSave;
@@ -11,6 +16,18 @@ public class NewsItem {
         this.link = link;
         this.content = content;
         this.isSave = false;
+        formatDay();
+    }
+
+    public void formatDay(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ssZ", Locale.ENGLISH);
+        SimpleDateFormat newFormat = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH);
+        try{
+            Date date = simpleDateFormat.parse(pupDate);
+            pupDate = newFormat.format(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getContent() {

@@ -23,10 +23,12 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
 
     private final List<NewsItem> newsItems;
     private final Context context;
+    private final String categoryName;
 
-    public NewsListAdapter(List<NewsItem> rssItems, Context context) {
+    public NewsListAdapter(List<NewsItem> rssItems, Context context, String category) {
         this.newsItems = rssItems;
         this.context = context;
+        this.categoryName = category;
     }
 
     @NonNull
@@ -54,6 +56,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
             intent.putExtra("link", newsItem.getLink());
             intent.putExtra("content", newsItem.getContent());
             intent.putExtra("pubDate", newsItem.getPupDate());
+            intent.putExtra("category", categoryName);
             context.startActivity(intent);
         });
     }

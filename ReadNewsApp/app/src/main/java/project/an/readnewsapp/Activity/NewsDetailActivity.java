@@ -40,7 +40,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         String imageUrl = getIntent().getStringExtra("imageUrl");
         String content = getIntent().getStringExtra("content");
         String pubDate = getIntent().getStringExtra("pubDate");
-
+        String category = getIntent().getStringExtra("category");
+        categoryDetail.setText(category);
         titleDetailTxt.setText(title);
         Glide.with(this)
                 .load(imageUrl)

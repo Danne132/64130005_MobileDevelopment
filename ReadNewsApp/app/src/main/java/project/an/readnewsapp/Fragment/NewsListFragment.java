@@ -30,15 +30,18 @@ import project.an.readnewsapp.RSSUtils;
 public class NewsListFragment extends Fragment {
 
     private static final String ARG_URL = "category_url";
+    private static final String ARG_NAME_CAT = "category_name";
     private String categoryUrl;
+    private String categoryName;
     private RecyclerView recyclerView;
     private NewsListAdapter adapter;
     private boolean isLoading = false;
 
-    public static NewsListFragment newInstance(String url) {
+    public static NewsListFragment newInstance(String url, String name) {
         NewsListFragment fragment = new NewsListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_URL, url);
+        args.putString(ARG_NAME_CAT, name);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,6 +51,7 @@ public class NewsListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             categoryUrl = getArguments().getString(ARG_URL);
+            categoryName = getArguments().getString(ARG_NAME_CAT);
         }
     }
     @Override
@@ -63,7 +67,7 @@ public class NewsListFragment extends Fragment {
                 List<NewsItem> rssItems = RSSUtils.parseRSS(rssData);
 
                 getActivity().runOnUiThread(() -> {
-                    NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext());
+                    NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext(), categoryName);
                     recyclerView.setAdapter(adapter);
                 });
                 Log.d("RSSFragment", "RSS Data: " + rssData);
