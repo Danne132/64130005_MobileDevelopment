@@ -74,9 +74,12 @@ public class RSSUtils {
                     if (imageUrl == null || imageUrl.isEmpty()){
                         imageUrl = extractFirstImage(content);
                     }
+                    if (description == null || description.isEmpty()){
+                        description = content;
+                    }
                     if(imageUrl!=null) Log.i("Main", "Get image success");
                     else Log.i("Main", "Failed to get image");
-                    NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link, content);
+                    NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link, description);
                     newsItems.add(newsItem);
                     HomeFragment.newsList.add(newsItem);
                 }

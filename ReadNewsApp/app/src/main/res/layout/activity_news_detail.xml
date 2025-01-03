@@ -98,7 +98,12 @@
             android:textColor="#333647"
             android:text="November 14, 2024"/>
         <TextView
+            android:id="@+id/contentDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#666C8E"
+            android:textSize="16dp"
+            android:fontFamily="@font/inter_regular"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

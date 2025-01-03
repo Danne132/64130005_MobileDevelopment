@@ -19,19 +19,22 @@ import project.an.readnewsapp.R;
 public class NewsDetailActivity extends AppCompatActivity {
 
     ImageView imageDetailNews, backToHome;
-    TextView titleDetailTxt, categoryDetail;
+    TextView titleDetailTxt, categoryDetail, contentDetail, pubDateDetail;
 
     private void getControl(){
         imageDetailNews = findViewById(R.id.imageDetailNews);
         backToHome = findViewById(R.id.backToHome);
         titleDetailTxt = findViewById(R.id.titleDetailTxt);
         categoryDetail = findViewById(R.id.categoryDetail);
+        contentDetail = findViewById(R.id.contentDetail);
+        pubDateDetail = findViewById(R.id.pubDateDetail);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
+        getControl();
         // Nhận dữ liệu từ intent
         String title = getIntent().getStringExtra("title");
         String imageUrl = getIntent().getStringExtra("imageUrl");
@@ -43,10 +46,10 @@ public class NewsDetailActivity extends AppCompatActivity {
                 .load(imageUrl)
                 .placeholder(R.drawable.place_holder) // Hình ảnh thay thế khi đang tải
                 .into(imageDetailNews);
-
+        pubDateDetail.setText(pubDate);
 //        Chuyển hóa các thẻ HTML
         Spanned plainText = Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY);
-
+        contentDetail.setText(plainText);
         // Gán dữ liệu vào giao diện
     }
 }
