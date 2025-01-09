@@ -34,6 +34,7 @@ public class NewsListFragment extends Fragment {
     private String categoryUrl;
     private String categoryName;
     private RecyclerView recyclerView;
+    private ProgressBar progressBarNewsList;
     private NewsListAdapter adapter;
     private boolean isLoading = false;
 
@@ -59,7 +60,9 @@ public class NewsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        progressBarNewsList = view.findViewById(R.id.progressBarNewsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        progressBarNewsList.setVisibility(View.VISIBLE);
         // Tải dữ liệu RSS
         new Thread(() -> {
             try {
@@ -67,12 +70,17 @@ public class NewsListFragment extends Fragment {
                 List<NewsItem> rssItems = RSSUtils.parseRSS(rssData);
 
                 getActivity().runOnUiThread(() -> {
+                    progressBarNewsList.setVisibility(View.GONE);
                     NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext(), categoryName);
                     recyclerView.setAdapter(adapter);
                 });
                 Log.d("RSSFragment", "RSS Data: " + rssData);
             } catch (Exception e) {
                 e.printStackTrace();
+                getActivity().runOnUiThread(() -> {
+                    // Ẩn ProgressBar nếu có lỗi
+                    progressBarNewsList.setVisibility(View.GONE);
+                });
             }
         }).start();
 

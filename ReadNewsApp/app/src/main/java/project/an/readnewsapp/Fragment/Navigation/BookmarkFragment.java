@@ -84,6 +84,10 @@ public class BookmarkFragment extends Fragment {
     public void onResume() {
         super.onResume();
         checkDatabaseStatus();
+        getBookMarkList();
+        bookmarkList.setLayoutManager(new LinearLayoutManager(getContext()));
+        bookmarkAdapter = new BookmarkAdapter(getContext(), bookmarks);
+        bookmarkList.setAdapter(bookmarkAdapter);
     }
 
     private void checkDatabaseStatus() {
@@ -100,6 +104,7 @@ public class BookmarkFragment extends Fragment {
 
     @SuppressLint("Range")
     private void getBookMarkList(){
+        bookmarks.clear();
         Cursor cursor = databaseHelper.getAllData();
         while (cursor.moveToNext()) {
             NewsItem newsItem = new NewsItem(
