@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public long insertData(String title, String link, String img, String content, String pubDate, String category) {
+    public long insertBookmark(String title, String link, String img, String content, String pubDate, String category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, title);
@@ -65,9 +65,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_NAME, null, values);
     }
 
+    public int deleteBookmark(String title){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("bookmark", "title =?", new String[]{title});
+    }
+
     public Cursor getAllData() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+    }
+
+    public boolean isBookmarked(String title) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM bookmark WHERE title = ?", new String[]{title});
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
     }
 
 }

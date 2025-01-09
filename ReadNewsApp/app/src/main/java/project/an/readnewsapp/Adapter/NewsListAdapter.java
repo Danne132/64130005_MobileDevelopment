@@ -2,7 +2,6 @@ package project.an.readnewsapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +45,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsItem newsItem = newsItems.get(position);
+      /*  boolean isBookmarked = databaseHelper.isBookmarked(newsItem.getTitle());*/
         holder.titleTextView.setText(newsItem.getTitle());
 //         Hiển thị hình ảnh bằng Glide (thư viện tải ảnh)
         Glide.with(context)
@@ -54,20 +54,32 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                 .into(holder.imageView);
 //         Bắt sự kiện click vào một item
         holder.bookmark.setOnClickListener(v -> {
-            long result = databaseHelper.insertData(
-                    newsItem.getTitle(),
-                    newsItem.getImgUrl(),
-                    newsItem.getLink(),
-                    newsItem.getContent(),
-                    newsItem.getPupDate(),
-                    categoryName
-            );
-            if (result > 0) {
-                // Thành công
-                Toast.makeText(context, "Tin đã được lưu vào bookmark!", Toast.LENGTH_SHORT).show();
+            boolean isBookmarked = databaseHelper.isBookmarked(newsItem.getTitle());
+            if (isBookmarked) {
+                // Xóa khỏi bookmark
+                int rowsDeleted = databaseHelper.deleteBookmark(newsItem.getTitle());
+                if (rowsDeleted > 0) {
+
+                    Toast.makeText(context, "Đã xóa khỏi bookmark", Toast.LENGTH_SHORT).show();
+                    holder.bookmark.setImageResource(R.drawable.icon_bookmark);
+                } else {
+                    Toast.makeText(context, "Lỗi khi xóa bookmark", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                // Lỗi
-                Toast.makeText(context, "Lỗi khi lưu bookmark.", Toast.LENGTH_SHORT).show();
+                // Thêm vào bookmark
+                long result = databaseHelper.insertBookmark(
+                        newsItem.getTitle(),
+                        newsItem.getImgUrl(),
+                        newsItem.getLink(),
+                        newsItem.getContent(),
+                        newsItem.getPupDate(),
+                        categoryName
+                );
+                if (result > 0) {
+                    Toast.makeText(context, "Đã thêm vào bookmark", Toast.LENGTH_SHORT).show();
+                    holder.bookmark.setImageResource(R.drawable.icon_bookmark_chosen);
+                    Toast.makeText(context, "Lỗi khi thêm bookmark", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         holder.itemView.setOnClickListener(v -> {
@@ -100,7 +112,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         }
     }
 
-    
+
 
 
 
