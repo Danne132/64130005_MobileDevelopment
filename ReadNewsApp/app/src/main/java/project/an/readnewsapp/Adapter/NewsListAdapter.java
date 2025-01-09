@@ -2,11 +2,13 @@ package project.an.readnewsapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,17 +20,20 @@ import java.util.List;
 import project.an.readnewsapp.Activity.NewsDetailActivity;
 import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
+import project.an.readnewsapp.Service.DatabaseHelper;
 
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder>  {
 
     private final List<NewsItem> newsItems;
     private final Context context;
     private final String categoryName;
+    private final DatabaseHelper databaseHelper;
 
     public NewsListAdapter(List<NewsItem> rssItems, Context context, String category) {
         this.newsItems = rssItems;
         this.context = context;
         this.categoryName = category;
+        databaseHelper = DatabaseHelper.getInstance(this.context);
     }
 
     @NonNull
@@ -47,8 +52,24 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                 .load(newsItem.getImgUrl())
                 .placeholder(R.drawable.place_holder) // Hình ảnh thay thế khi đang tải
                 .into(holder.imageView);
-
 //         Bắt sự kiện click vào một item
+        holder.bookmark.setOnClickListener(v -> {
+            long result = databaseHelper.insertData(
+                    newsItem.getTitle(),
+                    newsItem.getImgUrl(),
+                    newsItem.getLink(),
+                    newsItem.getContent(),
+                    newsItem.getPupDate(),
+                    categoryName
+            );
+            if (result > 0) {
+                // Thành công
+                Toast.makeText(context, "Tin đã được lưu vào bookmark!", Toast.LENGTH_SHORT).show();
+            } else {
+                // Lỗi
+                Toast.makeText(context, "Lỗi khi lưu bookmark.", Toast.LENGTH_SHORT).show();
+            }
+        });
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, NewsDetailActivity.class);
             intent.putExtra("title", newsItem.getTitle());
@@ -75,9 +96,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleNews);
             imageView = itemView.findViewById(R.id.imageNews);
-            bookmark = imageView.findViewById(R.id.bookMark);
+            bookmark = itemView.findViewById(R.id.bookMarkItem);
         }
     }
+
+    
 
 
 

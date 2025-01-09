@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    public static DatabaseHelper instance;
     private static final String DATABASE_NAME = "ReadNews.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "bookmark";
@@ -18,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_IMG = "image_path";
     private static final String COLUMN_CONTENT = "content";
     private static final String COLUMN_DATE = "pub_date";
-
+    private static final String COLUMN_CAT = "category";
     private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " ("+
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
@@ -26,12 +28,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_LINK + " TEXT, "+
                     COLUMN_IMG + " TEXT, "+
                     COLUMN_CONTENT + " TEXT, "+
-                    COLUMN_DATE + " TEXT) ";
+                    COLUMN_DATE + " TEXT, "+
+                    COLUMN_CAT + " TEXT)";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    public static synchronized DatabaseHelper getInstance(Context context){
+        if(instance == null){
+            Log.i("Dữ liệu", "Tạo mới cơ sở dữ liệu");
+            return new DatabaseHelper(context);
+        }
+        return instance;
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -43,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public long insertData(String title, String link, String img, String content, String pubDate) {
+    public long insertData(String title, String link, String img, String content, String pubDate, String category) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, title);
@@ -51,6 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_IMG, img);
         values.put(COLUMN_DATE, pubDate);
         values.put(COLUMN_CONTENT, content);
+        values.put(COLUMN_CAT, category);
         return db.insert(TABLE_NAME, null, values);
     }
 
@@ -58,4 +69,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
     }
+
 }

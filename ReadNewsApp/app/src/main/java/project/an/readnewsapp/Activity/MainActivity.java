@@ -1,6 +1,7 @@
 package project.an.readnewsapp.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,16 +16,19 @@ import project.an.readnewsapp.Fragment.Navigation.CategoriesFragment;
 import project.an.readnewsapp.Fragment.Navigation.HomeFragment;
 import project.an.readnewsapp.Fragment.Navigation.ProfileFragment;
 import project.an.readnewsapp.R;
+import project.an.readnewsapp.Service.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageView homeNav, categoriesNav, bookmarkNav, profileNav;
+    DatabaseHelper databaseHelper;
 
     private void getControl(){
         homeNav = findViewById(R.id.homeNav);
         categoriesNav = findViewById(R.id.categoriesNav);
         bookmarkNav = findViewById(R.id.bookmarkNav);
         profileNav = findViewById(R.id.profileNav);
+        databaseHelper = DatabaseHelper.getInstance(this);
     }
 
     @Override
