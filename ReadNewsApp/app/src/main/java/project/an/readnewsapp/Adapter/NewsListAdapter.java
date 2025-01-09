@@ -45,7 +45,9 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         NewsItem newsItem = newsItems.get(position);
-      /*  boolean isBookmarked = databaseHelper.isBookmarked(newsItem.getTitle());*/
+        boolean isBookmarked = databaseHelper.isBookmarked(newsItem.getTitle());
+        if(isBookmarked) holder.bookmark.setImageResource(R.drawable.icon_bookmark_chosen);
+        else holder.bookmark.setImageResource(R.drawable.icon_bookmark);
         holder.titleTextView.setText(newsItem.getTitle());
 //         Hiển thị hình ảnh bằng Glide (thư viện tải ảnh)
         Glide.with(context)
@@ -54,8 +56,8 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                 .into(holder.imageView);
 //         Bắt sự kiện click vào một item
         holder.bookmark.setOnClickListener(v -> {
-            boolean isBookmarked = databaseHelper.isBookmarked(newsItem.getTitle());
-            if (isBookmarked) {
+            boolean isBookmarkedcheck = databaseHelper.isBookmarked(newsItem.getTitle());
+            if (isBookmarkedcheck) {
                 // Xóa khỏi bookmark
                 int rowsDeleted = databaseHelper.deleteBookmark(newsItem.getTitle());
                 if (rowsDeleted > 0) {

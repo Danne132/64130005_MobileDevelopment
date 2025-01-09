@@ -39,7 +39,7 @@
             android:src="@drawable/icon_left"
             />
         <ImageView
-            android:id="@+id/bookmarkDetails"
+            android:id="@+id/bookmarkDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

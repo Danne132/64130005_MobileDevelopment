@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/bookMark"
+                        app:layout_constraintRight_toLeftOf="@+id/bookMarkItem"
                         android:layout_marginRight="40dp"
                         android:text="AAAA"
                         android:maxLines="2"
