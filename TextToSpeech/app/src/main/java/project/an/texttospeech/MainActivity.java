@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                     int result = tts.setLanguage(Locale.US);
                     if (result == TextToSpeech.LANG_MISSING_DATA ||
                             result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        // Handle the error
+                            // Handle the error
                         btnSpeak.setEnabled(false);
                     } else {
                         btnSpeak.setEnabled(true);

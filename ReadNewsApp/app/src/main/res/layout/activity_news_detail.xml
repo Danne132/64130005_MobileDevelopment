@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/imageDetailNews"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="350dp"
                 android:src="@drawable/place_holder"
                 app:layout_constraintTop_toTopOf="parent"
                 android:scaleType="centerCrop"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="40dp"
                 android:orientation="horizontal"
                 android:layout_marginHorizontal="20dp">
                 <ImageView

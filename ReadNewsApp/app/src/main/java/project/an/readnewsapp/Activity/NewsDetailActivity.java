@@ -3,6 +3,7 @@ package project.an.readnewsapp.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -62,7 +63,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         setUp();
         shareNews.setOnClickListener(shareClick);
         bookmarkDetail.setOnClickListener(bookmarkClick);
-        tts = readAloud();
+        tts = new TextToSpeech(this, read);
         readAloud.setOnClickListener(readContent);
     }
 
@@ -164,40 +165,91 @@ public class NewsDetailActivity extends AppCompatActivity {
         }
     };*/
 
-    @Override
-    protected void onDestroy() {
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
-        super.onDestroy();
-    }
+     TextToSpeech.OnInitListener read = new TextToSpeech.OnInitListener() {
+         @Override
+         public void onInit(int status) {
+             if (status == TextToSpeech.SUCCESS) {
+                 // Set language
+                 int result = tts.setLanguage(Locale.US);
+                 if (result == TextToSpeech.LANG_MISSING_DATA ||
+                         result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                     // Handle the error
+                     readAloud.setVisibility(View.GONE);
+                 } else {
+                    readAloud.setVisibility(View.VISIBLE);
+                    tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                         @Override
+                         public void onStart(String utteranceId) {
+                             // Khi bắt đầu đọc
+                         }
 
-    private TextToSpeech readAloud(){
-        TextToSpeech toSpeech =new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    // Set language
-                    int result = tts.setLanguage(Locale.US);
-                    if (result == TextToSpeech.LANG_MISSING_DATA ||
-                            result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                        // Handle the error
-                        readAloud.setImageResource(R.drawable.icon_read);
-                    } else {
-                        readAloud.setImageResource(R.drawable.icon_read_choose);
-                    }
-                }
-            }
-        });
-        return toSpeech;
+                         @Override
+                         public void onDone(String utteranceId) {
+                             // Khi đọc xong, cập nhật UI
+                             runOnUiThread(new Runnable() {
+                                 @Override
+                                 public void run() {
+                                     readAloud.setImageResource(R.drawable.icon_read); // Đổi lại hình mặc định
+                                 }
+                             });
+                         }
+
+                         @Override
+                         public void onError(String utteranceId) {
+                             // Xử lý lỗi nếu cần
+                             runOnUiThread(new Runnable() {
+                                 @Override
+                                 public void run() {
+                                     Toast.makeText(getApplicationContext(), "Có lỗi khi đọc nội dung!", Toast.LENGTH_SHORT).show();
+                                 }
+                             });
+                         }
+                     });
+                 }
+             }
+         }
+     };
+
+    private String cleanHtmlContent(String html) {
+        // Chuyển đổi các thẻ HTML thành văn bản thuần
+        Spanned plainText = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+
+        // Loại bỏ các thẻ HTML còn sót
+        return plainText.toString().replaceAll("<[^>]*>", "");
     }
 
     View.OnClickListener readContent = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            tts.speak(content, TextToSpeech.QUEUE_FLUSH, null, null);
+            if (tts.isSpeaking()) {
+                // Nếu đang đọc, dừng đọc và đổi hình ảnh
+                tts.stop();
+                readAloud.setImageResource(R.drawable.icon_read); // Hình ảnh mặc định
+                Toast.makeText(getApplicationContext(), "Đã dừng đọc nội dung", Toast.LENGTH_SHORT).show();
+            } else {
+                // Nếu không đọc, bắt đầu đọc
+                String text = cleanHtmlContent(content); // Làm sạch nội dung
+                if (text != null && !text.trim().isEmpty()) {
+                    readAloud.setImageResource(R.drawable.icon_read_choose); // Đổi hình khi bắt đầu đọc
+                    Bundle params = new Bundle();
+                    params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID"); // Unique utterance ID
+                    tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, "UniqueID");
+                } else {
+                    Toast.makeText(getApplicationContext(), "Không có nội dung để đọc!", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+
+        }
+        readAloud.setImageResource(R.drawable.icon_read);
+        super.onDestroy();
+    }
 
 }
