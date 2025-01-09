@@ -6,8 +6,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class NewsItem {
-    String title, imgUrl,pupDate, link, content;
-    boolean isSave;
+    private String title, imgUrl,pupDate, link, content;
+    private boolean isSave;
+    private String category;
 
     public NewsItem(String title, String imgUrl, String pupDate, String link, String content) {
         this.title = title;
@@ -16,7 +17,6 @@ public class NewsItem {
         this.link = link;
         this.content = content;
         this.isSave = false;
-        formatDay();
     }
 
     public void formatDay(){
@@ -28,6 +28,14 @@ public class NewsItem {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getContent() {

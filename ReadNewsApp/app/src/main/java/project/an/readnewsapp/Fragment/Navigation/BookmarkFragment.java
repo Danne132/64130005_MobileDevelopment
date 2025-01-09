@@ -1,5 +1,7 @@
 package project.an.readnewsapp.Fragment.Navigation;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,11 +9,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import project.an.readnewsapp.Adapter.BookmarkAdapter;
+import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
 import project.an.readnewsapp.Service.DatabaseHelper;
 
@@ -25,6 +33,8 @@ public class BookmarkFragment extends Fragment {
     private RecyclerView bookmarkList;
     private LinearLayout bookmarkEmptyLayout, bookmarkNotEmptyLayout;
     private DatabaseHelper databaseHelper;
+    private BookmarkAdapter bookmarkAdapter;
+    private List<NewsItem> bookmarks;
 
     public BookmarkFragment() {
         // Required empty public constructor
@@ -35,6 +45,7 @@ public class BookmarkFragment extends Fragment {
         bookmarkEmptyLayout = view.findViewById(R.id.bookmarkEmptyLayout);
         bookmarkNotEmptyLayout = view.findViewById(R.id.bookmarkNotEmptyLayout);
         databaseHelper = DatabaseHelper.getInstance(getContext());
+        bookmarks = new ArrayList<>();
         checkDatabaseStatus();
     }
     // TODO: Rename and change types and number of parameters
@@ -49,6 +60,10 @@ public class BookmarkFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getControl(view);
+        checkDatabaseStatus();
+        getBookMarkList();
+        bookmarkAdapter = new BookmarkAdapter(getContext(), bookmarks);
+        bookmarkList.setAdapter(bookmarkAdapter);
     }
 
     @Override
@@ -70,12 +85,33 @@ public class BookmarkFragment extends Fragment {
     }
 
     private void checkDatabaseStatus() {
-        if (!databaseHelper.isDatabaseEmpty()) {
+        if (databaseHelper.isDatabaseEmpty()) {
+            Log.i("Bookmark", "Không có danh sách");
             bookmarkNotEmptyLayout.setVisibility(View.GONE);
             bookmarkEmptyLayout.setVisibility(View.VISIBLE);
         } else {
+            Log.i("Bookmark", "Có danh sách");
             bookmarkNotEmptyLayout.setVisibility(View.VISIBLE);
             bookmarkEmptyLayout.setVisibility(View.GONE);
         }
+    }
+
+    @SuppressLint("Range")
+    private void getBookMarkList(){
+        Cursor cursor = databaseHelper.getAllData();
+        while (cursor.moveToNext()) {
+            NewsItem newsItem = new NewsItem(
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    cursor.getString(cursor.getColumnIndex("image_path")),
+                    cursor.getString(cursor.getColumnIndex("pub_date")),
+                    cursor.getString(cursor.getColumnIndex("link")),
+                    cursor.getString(cursor.getColumnIndex("content"))
+            );
+            newsItem.setCategory(cursor.getString(cursor.getColumnIndex("category")));
+            bookmarks.add(newsItem);
+        }
+        cursor.close();
+        if(bookmarks != null) Log.i("Bookmark", "Nhận được danh sách");
+        else Log.i("Bookmark", "Chưa nhận được danh sách");
     }
 }

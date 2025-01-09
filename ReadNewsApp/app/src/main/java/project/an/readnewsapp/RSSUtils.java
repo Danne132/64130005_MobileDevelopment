@@ -80,6 +80,7 @@ public class RSSUtils {
                     if(imageUrl!=null) Log.i("Main", "Get image success");
                     else Log.i("Main", "Failed to get image");
                     NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link, description);
+                    newsItem.formatDay();
                     newsItems.add(newsItem);
                     HomeFragment.newsList.add(newsItem);
                 }
