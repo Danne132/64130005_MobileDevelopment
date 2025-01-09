@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -62,6 +63,7 @@ public class BookmarkFragment extends Fragment {
         getControl(view);
         checkDatabaseStatus();
         getBookMarkList();
+        bookmarkList.setLayoutManager(new LinearLayoutManager(getContext()));
         bookmarkAdapter = new BookmarkAdapter(getContext(), bookmarks);
         bookmarkList.setAdapter(bookmarkAdapter);
     }

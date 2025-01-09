@@ -71,8 +71,8 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                 // Thêm vào bookmark
                 long result = databaseHelper.insertBookmark(
                         newsItem.getTitle(),
-                        newsItem.getImgUrl(),
                         newsItem.getLink(),
+                        newsItem.getImgUrl(),
                         newsItem.getContent(),
                         newsItem.getPupDate(),
                         categoryName

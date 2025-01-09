@@ -78,6 +78,7 @@ public class NewsDetailActivity extends AppCompatActivity {
 //        Chuyển hóa các thẻ HTML
         Spanned plainText = Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY);
         contentDetail.setText(plainText);
+        backToHome.setOnClickListener(backClick);
     }
 
     View.OnClickListener bookmarkClick = new View.OnClickListener() {
@@ -121,6 +122,13 @@ public class NewsDetailActivity extends AppCompatActivity {
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, link);
             startActivity(Intent.createChooser(shareIntent, "Chia sẻ đường link qua:"));
+        }
+    };
+
+    View.OnClickListener backClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
         }
     };
 

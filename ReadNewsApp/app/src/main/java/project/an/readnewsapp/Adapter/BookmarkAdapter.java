@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,8 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
         NewsItem newsItem = bookmarList.get(position);
         holder.titleBookmarkList.setText(newsItem.getTitle());
         holder.categoryBookmarkList.setText(newsItem.getCategory());
+        if(newsItem.getImgUrl() == null) Log.i("bookmark", "Không nhận được hình ảnh");
+        else Log.i("bookmark", newsItem.getImgUrl());
         Glide.with(context)
                 .load(newsItem.getImgUrl())
                 .placeholder(R.drawable.place_holder)
