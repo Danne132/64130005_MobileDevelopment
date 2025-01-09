@@ -3,11 +3,11 @@
     <item
         android:id="@+id/home"
         android:title=""
-        android:icon="@drawable/icon_home"/>
+        android:icon="@drawable/icon_nav_home"/>
     <item
         android:id="@+id/categories"
         android:title=""
-        android:icon="@drawable/icon_categories"/>
+        android:icon="@drawable/icon_nav_categories"/>
     <item
         android:id="@+id/bookmark"
         android:title=""
@@ -15,5 +15,5 @@
     <item
         android:id="@+id/profile"
         android:title=""
-        android:icon="@drawable/icon_profile"/>
+        android:icon="@drawable/icon_nav_profile"/>
 </menu>

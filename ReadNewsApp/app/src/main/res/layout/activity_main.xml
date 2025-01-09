@@ -30,13 +30,13 @@
                 android:id="@+id/homeNav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_home"
+                android:src="@drawable/icon_nav_home"
                 android:layout_marginHorizontal="30dp"/>
             <ImageView
                 android:id="@+id/categoriesNav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_categories"
+                android:src="@drawable/icon_nav_categories"
                 android:layout_marginHorizontal="30dp"/>
             <ImageView
                 android:id="@+id/bookmarkNav"
@@ -48,7 +48,7 @@
                 android:id="@+id/profileNav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_profile"
+                android:src="@drawable/icon_nav_profile"
                 android:layout_marginHorizontal="30dp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

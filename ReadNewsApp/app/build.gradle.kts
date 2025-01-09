@@ -33,6 +33,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.guava)
+    implementation(libs.rome)
+    implementation(libs.work)
     implementation(libs.jsoup)
     implementation(libs.okhttp3)
     implementation(libs.glide)
