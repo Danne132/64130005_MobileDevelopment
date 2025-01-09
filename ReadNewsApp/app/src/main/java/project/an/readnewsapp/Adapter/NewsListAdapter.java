@@ -80,8 +80,8 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
                 if (result > 0) {
                     Toast.makeText(context, "Đã thêm vào bookmark", Toast.LENGTH_SHORT).show();
                     holder.bookmark.setImageResource(R.drawable.icon_bookmark_chosen);
-                    Toast.makeText(context, "Lỗi khi thêm bookmark", Toast.LENGTH_SHORT).show();
                 }
+                else Toast.makeText(context, "Lỗi khi thêm bookmark", Toast.LENGTH_SHORT).show();
             }
         });
         holder.itemView.setOnClickListener(v -> {

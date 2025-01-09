@@ -98,6 +98,12 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        setup();
+    }
+
     private void getControl(View view){
         inputSearchLayout = view.findViewById(R.id.inputSearchLayout);
         inputSearch = view.findViewById(R.id.inputSearch);
@@ -112,8 +118,7 @@ public class HomeFragment extends Fragment {
                 new Categories("Technology", "https://www.engadget.com/rss.xml"),
                 new Categories("Security", "https://hackernoon.com/feed")
         ));
-        adapter = new CategoryViewPageAdapter(this, categoriesList);
-        viewNewsList.setAdapter(adapter);
+        setup();
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED){
             checkPermission();
         }
@@ -123,6 +128,11 @@ public class HomeFragment extends Fragment {
                 speakNow(v);
             }
         });
+    }
+
+    private void setup(){
+        adapter = new CategoryViewPageAdapter(this, categoriesList);
+        viewNewsList.setAdapter(adapter);
     }
 
     private void setupView(){

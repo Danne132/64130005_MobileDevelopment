@@ -71,8 +71,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
+        Fragment existingFragment = fragmentManager.findFragmentByTag(fragment.getClass().getSimpleName());
+
+        if (existingFragment != null) {
+            // Fragment đã tồn tại, hiển thị lại
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, existingFragment, fragment.getClass().getSimpleName())
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            // Tạo mới Fragment
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, fragment, fragment.getClass().getSimpleName())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }

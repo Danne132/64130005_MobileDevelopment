@@ -8,6 +8,7 @@ import android.text.Spanned;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +49,21 @@ public class NewsDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_detail);
         getControl();
         getNewsIntent();
+        setUp();
+        shareNews.setOnClickListener(shareClick);
+        bookmarkDetail.setOnClickListener(bookmarkClick);
+    }
+
+    private void getNewsIntent(){
+        title = getIntent().getStringExtra("title");
+        imageUrl = getIntent().getStringExtra("imageUrl");
+        content = getIntent().getStringExtra("content");
+        pubDate = getIntent().getStringExtra("pubDate");
+        category = getIntent().getStringExtra("category");
+        link = getIntent().getStringExtra("link");
+    }
+
+    private void setUp(){
         if(databaseHelper.isBookmarked(title)){
             bookmarkDetail.setImageResource(R.drawable.icon_bookmark_chosen);
         }
@@ -62,17 +78,40 @@ public class NewsDetailActivity extends AppCompatActivity {
 //        Chuyển hóa các thẻ HTML
         Spanned plainText = Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY);
         contentDetail.setText(plainText);
-        shareNews.setOnClickListener(shareClick);
     }
 
-    private void getNewsIntent(){
-        title = getIntent().getStringExtra("title");
-        imageUrl = getIntent().getStringExtra("imageUrl");
-        content = getIntent().getStringExtra("content");
-        pubDate = getIntent().getStringExtra("pubDate");
-        category = getIntent().getStringExtra("category");
-        link = getIntent().getStringExtra("link");
-    }
+    View.OnClickListener bookmarkClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            boolean isBookmarkedcheck = databaseHelper.isBookmarked(title);
+            if (isBookmarkedcheck) {
+                // Xóa khỏi bookmark
+                int rowsDeleted = databaseHelper.deleteBookmark(title);
+                if (rowsDeleted > 0) {
+
+                    Toast.makeText(getApplicationContext(), "Đã xóa khỏi bookmark", Toast.LENGTH_SHORT).show();
+                    bookmarkDetail.setImageResource(R.drawable.icon_bookmark_detail);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Lỗi khi xóa bookmark", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Thêm vào bookmark
+                long result = databaseHelper.insertBookmark(
+                        title,
+                        imageUrl,
+                        link,
+                        content,
+                        pubDate,
+                        category
+                );
+                if (result > 0) {
+                    Toast.makeText(getApplicationContext(), "Đã thêm vào bookmark", Toast.LENGTH_SHORT).show();
+                    bookmarkDetail.setImageResource(R.drawable.icon_bookmark_chosen);
+                    Toast.makeText(getApplicationContext(), "Lỗi khi thêm bookmark", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    };
 
     View.OnClickListener shareClick = new View.OnClickListener() {
         @Override

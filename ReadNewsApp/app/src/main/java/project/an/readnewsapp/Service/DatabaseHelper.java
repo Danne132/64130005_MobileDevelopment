@@ -83,4 +83,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exists;
     }
 
+    public boolean isDatabaseEmpty() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM bookmark", null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int count = cursor.getInt(0);
+            cursor.close();
+            return count == 0;
+        }
+
+        return true;
+    }
 }
