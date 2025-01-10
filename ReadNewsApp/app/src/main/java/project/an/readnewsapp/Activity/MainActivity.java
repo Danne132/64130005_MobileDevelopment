@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Areader thông báo")
                 .setContentText("Chào mừng bạn đến với Areader")
                 .setPriority(NotificationCompat.PRIORITY_HIGH);

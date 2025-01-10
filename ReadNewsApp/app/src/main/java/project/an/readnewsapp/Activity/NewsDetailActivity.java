@@ -1,6 +1,7 @@
 package project.an.readnewsapp.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -65,6 +66,10 @@ public class NewsDetailActivity extends AppCompatActivity {
         bookmarkDetail.setOnClickListener(bookmarkClick);
         tts = new TextToSpeech(this, read);
         readAloud.setOnClickListener(readContent);
+        SharedPreferences shareTextSize = getSharedPreferences("ReadNews", MODE_PRIVATE);
+        int textSize = shareTextSize.getInt("textSize", 16);
+        contentDetail.setTextSize(textSize);
+        pubDateDetail.setTextSize(textSize);
     }
 
     private void getNewsIntent(){

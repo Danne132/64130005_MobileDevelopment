@@ -1,5 +1,7 @@
 package project.an.readnewsapp.Fragment.Navigation;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import project.an.readnewsapp.R;
 import project.an.readnewsapp.Service.DatabaseHelper;
@@ -21,6 +25,10 @@ import project.an.readnewsapp.Service.DatabaseHelper;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
+    private SeekBar seekBarTextSize;
+    private TextView textSizeNumber, checkTextSize;
+    private SharedPreferences sharedTextSize;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -42,6 +50,35 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        seekBarTextSize = view.findViewById(R.id.seekBarTextSize);
+        textSizeNumber = view.findViewById(R.id.textSizeNumber);
+        checkTextSize = view.findViewById(R.id.checkTextSize);
+        sharedTextSize = view.getContext().getSharedPreferences("ReadNews", Context.MODE_PRIVATE);
+        int textSize = sharedTextSize.getInt("textSize", 16);
+        textSizeNumber.setText(String.valueOf(textSize));
+        checkTextSize.setTextSize(textSize);
+        seekBarTextSize.setProgress(textSize);
+        seekBarTextSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int newSize = progress;
+                SharedPreferences.Editor editor = sharedTextSize.edit();
+                textSizeNumber.setText(String.valueOf(newSize));
+                checkTextSize.setTextSize(newSize);
+                editor.putInt("textSize", newSize);
+                editor.apply();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     @Override
