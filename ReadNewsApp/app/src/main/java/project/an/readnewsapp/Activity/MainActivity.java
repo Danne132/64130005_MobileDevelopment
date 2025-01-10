@@ -32,6 +32,7 @@ import project.an.readnewsapp.Fragment.Navigation.BookmarkFragment;
 import project.an.readnewsapp.Fragment.Navigation.CategoriesFragment;
 import project.an.readnewsapp.Fragment.Navigation.HomeFragment;
 import project.an.readnewsapp.Fragment.Navigation.ProfileFragment;
+import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
 import project.an.readnewsapp.Service.DatabaseHelper;
 import project.an.readnewsapp.Service.NewsCheckWorker;
@@ -63,18 +64,12 @@ public class MainActivity extends AppCompatActivity {
         bookmarkNav.setOnClickListener(bookmarkClick);
         profileNav.setOnClickListener(profileClick);
         sendNotification();
-//        scheduleNewsCheckWorker();
-        PeriodicWorkRequest newsCheckRequest = new PeriodicWorkRequest.Builder(
-                NewsCheckWorker.class,
-                1, TimeUnit.MINUTES // Chạy mỗi giờ
-        ).build();
+        PeriodicWorkRequest notificationWork =
+                new PeriodicWorkRequest.Builder(NewsCheckWorker.class, 15, TimeUnit.MINUTES)
+                        .build();
 
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                "NewsCheckWorker",
-                ExistingPeriodicWorkPolicy.KEEP, // Không chạy trùng công việc
-                newsCheckRequest
-        );
-
+        // Đăng ký công việc với WorkManager
+        WorkManager.getInstance(this).enqueue(notificationWork);
     }
 
     View.OnClickListener homeClick = new View.OnClickListener() {
@@ -158,14 +153,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//    private void scheduleNewsCheckWorker() {
-//        // Đặt lịch để Worker kiểm tra tin tức RSS sau mỗi 15 phút
-//        WorkRequest newsCheckRequest = new OneTimeWorkRequest.Builder(NewsCheckWorker.class)
-//                .setInitialDelay(15, TimeUnit.MINUTES)  // Delay ban đầu (15 phút)
-//                .addTag("RSS_FEED_CHECK")  // Thêm tag cho công việc
-//                .build();
-//
-//        // Đăng ký Worker với WorkManager
-//        WorkManager.getInstance(this).enqueue(newsCheckRequest);
-//    }
+
 }
