@@ -20,6 +20,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -211,7 +212,10 @@ public class HomeFragment extends Fragment {
 
         if(requestCode == 111 && resultCode == RESULT_OK){
             inputSearch.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
-
+            String query = inputSearch.getText().toString();
+            if (!query.isEmpty()) {
+                sharedViewModel.setQuery(query);
+            }
         }
     }
 
@@ -223,6 +227,7 @@ public class HomeFragment extends Fragment {
             if (!query.isEmpty()) {
                 sharedViewModel.setQuery(query);
             }
+            else sharedViewModel.setQuery(null);
             return true;
         }
     };

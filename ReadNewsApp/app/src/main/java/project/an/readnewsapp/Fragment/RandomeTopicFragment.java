@@ -79,7 +79,11 @@ public class RandomeTopicFragment extends Fragment {
         sharedViewModel.getQuery().observe(getViewLifecycleOwner(), query -> {
             if (query != null) {
                 List<NewsItem> filteredNews = filterNewsList(query);
-                adapter.updateData(filteredNews); // Cập nhật adapter
+                adapter = new NewsListAdapter(filteredNews, getContext(), null);
+                recyclerViewAllNews.setAdapter(adapter);// Cập nhật adapter
+            }
+            else {
+                getAllNews();
             }
         });
     }
@@ -87,7 +91,6 @@ public class RandomeTopicFragment extends Fragment {
     private void getAllNews() {
         new Thread(() -> {
             try {
-                List<NewsItem> newsList = new ArrayList<>();
                 // Cập nhật giao diện trên luồng chính
                 getActivity().runOnUiThread(() -> {
                     progressBarAllNewsList.setVisibility(View.GONE);
