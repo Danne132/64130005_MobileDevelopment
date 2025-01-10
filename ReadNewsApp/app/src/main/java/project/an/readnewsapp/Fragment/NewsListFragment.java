@@ -68,7 +68,7 @@ public class NewsListFragment extends Fragment {
             try {
                 String rssData = RSSUtils.fetchRSS(categoryUrl);
                 List<NewsItem> rssItems = RSSUtils.parseRSS(rssData);
-
+                HomeFragment.newsList.addAll(rssItems);
                 getActivity().runOnUiThread(() -> {
                     progressBarNewsList.setVisibility(View.GONE);
                     NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext(), categoryName);

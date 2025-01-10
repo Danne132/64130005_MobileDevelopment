@@ -40,6 +40,7 @@
             android:columnCount="2"
             android:layout_marginTop="30dp">
             <LinearLayout
+                android:id="@+id/AICategoryChoose"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:paddingVertical="24dp"
@@ -51,11 +52,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semi_bold"
-                    android:text="AI/ML"
+                    android:text="🤖  AI/ML"
                     android:textColor="#666C8E"
                     android:textAlignment="center"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/SoftwareCategoryChoose"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:paddingVertical="24dp"
@@ -67,11 +69,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semi_bold"
-                    android:text="AI/ML"
+                    android:text="💡  Software"
                     android:textColor="#666C8E"
                     android:textAlignment="center"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/TechCategoryChoose"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:paddingVertical="24dp"
@@ -83,11 +86,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semi_bold"
-                    android:text="AI/ML"
+                    android:text="📱  Technology"
                     android:textColor="#666C8E"
                     android:textAlignment="center"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/SecurityCategoryChoose"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:paddingVertical="24dp"
@@ -99,7 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semi_bold"
-                    android:text="AI/ML"
+                    android:text="🔐  Security"
                     android:textColor="#666C8E"
                     android:textAlignment="center"/>
             </LinearLayout>

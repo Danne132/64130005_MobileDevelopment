@@ -23,7 +23,8 @@ public class CategoryViewPageAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         // Kiểm tra rằng vị trí hợp lệ
-        if (position >= 0 && position < categories.size()) {
+        if (position == 0) return new RandomeTopicFragment();
+        if (position > 0 && position < categories.size()) {
             if (categories.get(position).getUrl()!=null){
                 String url = categories.get(position).getUrl();
                 String name = categories.get(position).getTitle();

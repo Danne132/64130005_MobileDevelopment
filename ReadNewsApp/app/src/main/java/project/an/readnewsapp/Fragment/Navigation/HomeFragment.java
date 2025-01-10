@@ -96,6 +96,7 @@ public class HomeFragment extends Fragment {
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED){
             checkPermission();
         }
+
     }
 
     @Override
@@ -143,6 +144,7 @@ public class HomeFragment extends Fragment {
             tab.setCustomView(customTab);
         }).attach();
         tabCategories.addOnTabSelectedListener(tabSelectedListener);
+        tabCategories.selectTab(tabCategories.getTabAt((-1)));
     }
 
     TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
