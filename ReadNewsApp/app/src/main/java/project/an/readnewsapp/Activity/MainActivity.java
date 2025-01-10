@@ -19,7 +19,9 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
@@ -61,7 +63,18 @@ public class MainActivity extends AppCompatActivity {
         bookmarkNav.setOnClickListener(bookmarkClick);
         profileNav.setOnClickListener(profileClick);
         sendNotification();
-        scheduleNewsCheckWorker();
+//        scheduleNewsCheckWorker();
+        PeriodicWorkRequest newsCheckRequest = new PeriodicWorkRequest.Builder(
+                NewsCheckWorker.class,
+                1, TimeUnit.MINUTES // Chạy mỗi giờ
+        ).build();
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "NewsCheckWorker",
+                ExistingPeriodicWorkPolicy.KEEP, // Không chạy trùng công việc
+                newsCheckRequest
+        );
+
     }
 
     View.OnClickListener homeClick = new View.OnClickListener() {
@@ -134,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Areader thông báo")
@@ -147,14 +159,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void scheduleNewsCheckWorker() {
-        // Đặt lịch để Worker kiểm tra tin tức RSS sau mỗi 15 phút
-        WorkRequest newsCheckRequest = new OneTimeWorkRequest.Builder(NewsCheckWorker.class)
-                .setInitialDelay(15, TimeUnit.MINUTES)  // Delay ban đầu (15 phút)
-                .addTag("RSS_FEED_CHECK")  // Thêm tag cho công việc
-                .build();
-
-        // Đăng ký Worker với WorkManager
-        WorkManager.getInstance(this).enqueue(newsCheckRequest);
-    }
+//    private void scheduleNewsCheckWorker() {
+//        // Đặt lịch để Worker kiểm tra tin tức RSS sau mỗi 15 phút
+//        WorkRequest newsCheckRequest = new OneTimeWorkRequest.Builder(NewsCheckWorker.class)
+//                .setInitialDelay(15, TimeUnit.MINUTES)  // Delay ban đầu (15 phút)
+//                .addTag("RSS_FEED_CHECK")  // Thêm tag cho công việc
+//                .build();
+//
+//        // Đăng ký Worker với WorkManager
+//        WorkManager.getInstance(this).enqueue(newsCheckRequest);
+//    }
 }

@@ -10,6 +10,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -27,20 +29,25 @@ import org.w3c.dom.Document;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import project.an.readnewsapp.Activity.MainActivity;
+import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
+import project.an.readnewsapp.RSSUtils;
 
 public class NewsCheckWorker extends Worker {
     private static final String CHANNEL_ID = "CHANNEL_1";
     private List<String> rssUrls = Arrays.asList(
-            "https://machinelearningmastery.com/blog/feed/",   // Link 1
-            "https://dev.to/feed",   // Link 2
+            "https://machinelearningmastery.com/blog/feed/", 
+            "https://dev.to/feed",
             "https://www.engadget.com/rss.xml",
-            "https://hackernoon.com/feed"// Link 3
+            "https://hackernoon.com/feed"
     );
 
     public NewsCheckWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -52,36 +59,29 @@ public class NewsCheckWorker extends Worker {
     @Override
     public Result doWork() {
         // Kiểm tra RSS feed tin tức mới
-        boolean hasNewNews = checkForNewRSSFeed(); // Hàm kiểm tra RSS feed
+        NewsItem newsItem = checkForNewRSSFeed(); // Hàm kiểm tra RSS feed
 
-        if (hasNewNews) {
-            sendNotification("Tin tức mới", "Xem ngay bài báo mới!");
+        if (newsItem!=null) {
+            sendNotification(newsItem.getTitle(), newsItem.getImgUrl());
         }
 
         return Result.success();
     }
 
-    private boolean checkForNewRSSFeed() {
+    private NewsItem checkForNewRSSFeed() {
         try {
             for (String rssUrl : rssUrls) {
-                URL url = new URL(rssUrl);
-                InputStream inputStream = url.openStream();
-                SyndFeedInput input = new SyndFeedInput();
-                SyndFeed feed = input.build((Document) inputStream);
-
-                List<SyndEntry> entries = feed.getEntries();
-                if (!entries.isEmpty()) {
-                    SyndEntry latestEntry = entries.get(0);
-                    String title = latestEntry.getTitle();
-
-                    // Lấy ID bài viết (hoặc có thể lấy ngày đăng)
-                    String entryId = latestEntry.getUri(); // Hoặc dùng ID, URL, ngày đăng
-
-                    // Kiểm tra bài viết đã thông báo chưa (so sánh với thông tin đã lưu)
-                    if (!isArticleNotified(entryId)) {
-                        // Lưu ID bài viết vào SharedPreferences
-                        markArticleAsNotified(entryId);
-                        return true;  // Nếu chưa thông báo về bài viết này
+                String rssData = RSSUtils.fetchRSS(rssUrl);
+                if(rssData.isEmpty()) continue;
+                List<NewsItem> newsItems = RSSUtils.parseRSS(rssData);
+                String today = new SimpleDateFormat("EEE, dd MMM yyyy").format(new Date());
+                for(NewsItem newsItem : newsItems){
+                    if(newsItem.getPupDate().equals(today)){
+                        String entryId = newsItem.getLink();
+                        if(!isArticleNotified(entryId)){
+                            markArticleAsNotified(entryId);
+                            return newsItem;
+                        }
                     }
                 }
             }
@@ -89,7 +89,7 @@ public class NewsCheckWorker extends Worker {
             e.printStackTrace();
         }
 
-        return false;  // Không có tin mới
+        return null;  // Không có tin mới
     }
 
     private boolean isArticleNotified(String articleId) {
@@ -104,17 +104,31 @@ public class NewsCheckWorker extends Worker {
         editor.apply();
     }
 
-    private void sendNotification(String title, String message) {
+    private void sendNotification(String title, String imgURL) {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-
+        Bitmap bitmap = null;
+        if(imgURL != null){
+            bitmap = getBitMapFromURL(imgURL);
+        }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle(title)
-                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Tin tức mới")
+                .setContentText(title)
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap))
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
 
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify((int) System.currentTimeMillis(), builder.build());
+    }
+
+    private Bitmap getBitMapFromURL(String imgURL) {
+        try {
+            URL url = new URL(imgURL);
+            return BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; // Trả về null nếu không tải được ảnh
+        }
     }
 
     private void createNotificationChannel(Context context) {
