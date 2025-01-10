@@ -44,7 +44,7 @@ import project.an.readnewsapp.RSSUtils;
 public class NewsCheckWorker extends Worker {
     private static final String CHANNEL_ID = "CHANNEL_1";
     private List<String> rssUrls = Arrays.asList(
-            "https://machinelearningmastery.com/blog/feed/", 
+            "https://machinelearningmastery.com/blog/feed/",
             "https://dev.to/feed",
             "https://www.engadget.com/rss.xml",
             "https://hackernoon.com/feed"
