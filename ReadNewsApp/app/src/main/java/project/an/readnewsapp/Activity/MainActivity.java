@@ -148,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Areader thông báo")
-                .setContentText("Chào mừng bạn đến với Areader")
+                .setContentTitle("Atech notification")
+                .setContentText("Welcome to Atech")
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
 
