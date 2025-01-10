@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,7 @@ import project.an.readnewsapp.Fragment.Navigation.HomeFragment;
 import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
 import project.an.readnewsapp.RSSUtils;
+import project.an.readnewsapp.Service.SharedViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +44,8 @@ public class RandomeTopicFragment extends Fragment {
             "https://www.engadget.com/rss.xml",
             "https://hackernoon.com/feed"
     );
+    private List<NewsItem> newsItems = new ArrayList<>();
+    private SharedViewModel sharedViewModel;
 
     public static RandomeTopicFragment newInstance() {
         RandomeTopicFragment fragment = new RandomeTopicFragment();
@@ -67,9 +72,16 @@ public class RandomeTopicFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerViewAllNews = view.findViewById(R.id.recyclerViewAllNews);
         progressBarAllNewsList = view.findViewById(R.id.progressBarAllNewsList);
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         recyclerViewAllNews.setLayoutManager(new LinearLayoutManager(getContext()));
         progressBarAllNewsList.setVisibility(View.VISIBLE);
         getAllNews();
+        sharedViewModel.getQuery().observe(getViewLifecycleOwner(), query -> {
+            if (query != null) {
+                List<NewsItem> filteredNews = filterNewsList(query);
+                adapter.updateData(filteredNews); // Cập nhật adapter
+            }
+        });
     }
 
     private void getAllNews() {
@@ -87,5 +99,15 @@ public class RandomeTopicFragment extends Fragment {
                 getActivity().runOnUiThread(() -> progressBarAllNewsList.setVisibility(View.GONE));
             }
         }).start();
+    }
+
+    private List<NewsItem> filterNewsList(String query) {
+        List<NewsItem> filteredList = new ArrayList<>();
+        for (NewsItem item : HomeFragment.newsList) {
+            if (item.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        return filteredList;
     }
 }

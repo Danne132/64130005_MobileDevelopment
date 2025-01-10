@@ -14,11 +14,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,10 +59,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import project.an.readnewsapp.Activity.MainActivity;
+import project.an.readnewsapp.Fragment.RandomeTopicFragment;
 import project.an.readnewsapp.Models.Categories;
 import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
 import project.an.readnewsapp.Adapter.CategoryViewPageAdapter;
+import project.an.readnewsapp.Service.SharedViewModel;
 
 
 public class HomeFragment extends Fragment {
@@ -75,6 +79,7 @@ public class HomeFragment extends Fragment {
     OkHttpClient client;
     public static int RecordAudioRequestCode = 1;
     public static List<NewsItem> newsList;
+    SharedViewModel sharedViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,6 +134,8 @@ public class HomeFragment extends Fragment {
                 speakNow(v);
             }
         });
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        inputSearch.setOnEditorActionListener(search);
     }
 
     private void setup(){
@@ -209,4 +216,14 @@ public class HomeFragment extends Fragment {
     }
 
 
+    TextView.OnEditorActionListener search = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            String query = inputSearch.getText().toString();
+            if (!query.isEmpty()) {
+                sharedViewModel.setQuery(query);
+            }
+            return true;
+        }
+    };
 }

@@ -114,7 +114,11 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         }
     }
 
-
+    public void updateData(List<NewsItem> newNewsList) {
+        this.newsItems.clear();
+        this.newsItems.addAll(newNewsList);
+        notifyDataSetChanged(); // Làm mới RecyclerView
+    }
 
 
 

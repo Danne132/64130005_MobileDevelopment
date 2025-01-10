@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.checkerframework.checker.units.qual.N;
+
 import java.util.List;
 
 import project.an.readnewsapp.Adapter.NewsListAdapter;
@@ -86,5 +88,6 @@ public class NewsListFragment extends Fragment {
 
         return view;
     }
+
 
 }
