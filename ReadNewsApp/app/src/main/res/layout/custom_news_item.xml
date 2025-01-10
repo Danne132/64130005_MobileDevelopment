@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="20dp"
+    android:layout_margin="20dp"
     android:elevation="10dp"
-    android:background="@drawable/shadow">
+    android:background="@drawable/border_news_item">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,8 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/border_news_item">
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
             <ImageView
                 android:id="@+id/imageNews"
                 android:layout_width="match_parent"
@@ -35,8 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:background="@drawable/border_title_news_item">
+                    android:padding="20dp">
                     <TextView
                         android:id="@+id/titleNews"
                         android:layout_width="0dp"
