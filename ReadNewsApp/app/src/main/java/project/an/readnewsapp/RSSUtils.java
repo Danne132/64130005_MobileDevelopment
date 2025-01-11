@@ -15,8 +15,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -77,12 +80,13 @@ public class RSSUtils {
                     if (description == null || description.isEmpty()){
                         description = content;
                     }
-                    if(imageUrl!=null) Log.i("Main", "Get image success");
-                    else Log.i("Main", "Failed to get image");
                     NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link, description);
                     newsItem.formatDay();
                     newsItems.add(newsItem);
                     HomeFragment.newsList.add(newsItem);
+                    String today = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH).format(new Date());
+                    Log.i("Today", today);
+                    if(newsItem.getPupDate().equals(today)) Log.i("NewsToday", newsItem.getTitle());
                 }
             }
         } catch (Exception e) {
