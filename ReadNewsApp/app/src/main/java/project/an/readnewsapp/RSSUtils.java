@@ -83,7 +83,6 @@ public class RSSUtils {
                     NewsItem newsItem = new NewsItem(title, imageUrl, pubDate, link, description);
                     newsItem.formatDay();
                     newsItems.add(newsItem);
-                    HomeFragment.newsList.add(newsItem);
                     String today = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH).format(new Date());
                     Log.i("Today", today);
                     if(newsItem.getPupDate().equals(today)) Log.i("NewsToday", newsItem.getTitle());

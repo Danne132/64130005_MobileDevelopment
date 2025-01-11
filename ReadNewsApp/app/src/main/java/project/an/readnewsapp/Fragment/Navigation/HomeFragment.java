@@ -102,7 +102,15 @@ public class HomeFragment extends Fragment {
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED){
             checkPermission();
         }
-
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            int selectedTab = bundle.getInt("selectedTab", 0);
+            Log.i("tag mới", String.valueOf(selectedTab));
+            if (tabCategories != null) {
+                Log.i("chọn tab", "Đã chọn tab:"+selectedTab);
+                tabCategories.selectTab(tabCategories.getTabAt(selectedTab));
+            }
+        }
     }
 
     @Override
