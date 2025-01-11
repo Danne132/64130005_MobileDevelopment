@@ -10,7 +10,10 @@ import static project.an.readnewsapp.RSSUtils.parseRSS;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -42,18 +45,20 @@ import java.util.Locale;
 import java.util.UUID;
 
 import project.an.readnewsapp.Activity.MainActivity;
+import project.an.readnewsapp.Activity.NewsDetailActivity;
+import project.an.readnewsapp.Models.Categories;
 import project.an.readnewsapp.Models.NewsItem;
 import project.an.readnewsapp.R;
 import project.an.readnewsapp.RSSUtils;
 
 public class NewsCheckWorker extends Worker {
     private static final int NOTIFICATION_ID = 2;
-    private List<String> rssUrls = Arrays.asList(
-            "https://machinelearningmastery.com/blog/feed/",   // Link 1
-            "https://dev.to/feed",   // Link 2
-            "https://www.engadget.com/rss.xml",
-            "https://hackernoon.com/feed"// Link 3
-    );
+    private List<Categories> categoriesList = new ArrayList<>(Arrays.asList(
+            new Categories("AI/ML", "https://machinelearningmastery.com/blog/feed/"),
+            new Categories("Software", "https://dev.to/feed"),
+            new Categories("Technology", "https://www.engadget.com/rss.xml"),
+            new Categories("Security", "https://hackernoon.com/feed")
+    ));
 
     public NewsCheckWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -63,16 +68,16 @@ public class NewsCheckWorker extends Worker {
     @Override
     public Result doWork() {
         NewsItem newsItem = getLatestNews();
-        sendNotification(newsItem.getTitle(), newsItem.getImgUrl());
+        sendNotification(newsItem);
         return Result.success();
     }
 
-    private void sendNotification(String message, String imageURL) {
+    private void sendNotification(NewsItem newsItem) {
         NotificationManager notificationManager =
                 (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.place_holder);
-        if(imageURL != null)
-            bitmap = getBitmapFromUrl(imageURL);
+        if(newsItem.getImgUrl() != null)
+            bitmap = getBitmapFromUrl(newsItem.getImgUrl());
         // Tạo NotificationChannel (Android 8.0 trở lên)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
@@ -82,25 +87,43 @@ public class NewsCheckWorker extends Worker {
             );
             notificationManager.createNotificationChannel(channel);
         }
+        int notic_id = (int) System.currentTimeMillis();
+        // Create an Intent for the activity you want to start.
+        Intent resultIntent = new Intent(this.getApplicationContext(), NewsDetailActivity.class);
+        resultIntent.putExtra("title", newsItem.getTitle());
+        resultIntent.putExtra("imageUrl", newsItem.getImgUrl());
+        resultIntent.putExtra("link", newsItem.getLink());
+        resultIntent.putExtra("content", newsItem.getContent());
+        resultIntent.putExtra("pubDate", newsItem.getPupDate());
+        resultIntent.putExtra("category", newsItem.getCategory());
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this.getApplicationContext());
+        stackBuilder.addNextIntentWithParentStack(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(notic_id,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         // Tạo thông báo
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), MainActivity.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("New article")
-                .setContentText(message)
+                .setContentTitle(newsItem.getCategory())
+                .setContentText(newsItem.getTitle())
                 .setLargeIcon(bitmap)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setContentIntent(resultPendingIntent);
 
         // Hiển thị thông báo
-        notificationManager.notify((int) System.currentTimeMillis(), builder.build());
+        notificationManager.notify(notic_id, builder.build());
     }
 
     private NewsItem getLatestNews() {
         try {
-            for (String rssUrl : rssUrls) {
-                String rssData = fetchRSS(rssUrl); // Gọi hàm lấy dữ liệu RSS đã có sẵn
+            for (Categories category : categoriesList) {
+                String rssData = fetchRSS(category.getUrl()); // Gọi hàm lấy dữ liệu RSS đã có sẵn
                 List<NewsItem> newsItems = parseRSS(rssData); // Parse RSS thành danh sách NewsItem
-
+                for(NewsItem newsItem : newsItems){
+                    newsItem.setCategory(category.getTitle());
+                }
                 for (NewsItem newsItem : newsItems) {
                     String today = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH).format(new Date());
                     if(newsItem.getPupDate().equals(today)){
