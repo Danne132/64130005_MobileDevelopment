@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,8 @@ import project.an.readnewsapp.Service.DatabaseHelper;
 public class BookmarkFragment extends Fragment {
 
     private RecyclerView bookmarkList;
-    private LinearLayout bookmarkEmptyLayout, bookmarkNotEmptyLayout;
+    private LinearLayout bookmarkEmptyLayout;
+    private ScrollView bookmarkNotEmptyLayout;
     private DatabaseHelper databaseHelper;
     private BookmarkAdapter bookmarkAdapter;
     private List<NewsItem> bookmarks;

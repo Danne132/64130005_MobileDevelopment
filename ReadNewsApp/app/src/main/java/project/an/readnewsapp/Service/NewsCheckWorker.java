@@ -68,7 +68,8 @@ public class NewsCheckWorker extends Worker {
     @Override
     public Result doWork() {
         NewsItem newsItem = getLatestNews();
-        sendNotification(newsItem);
+        if(newsItem!=null)
+            sendNotification(newsItem);
         return Result.success();
     }
 

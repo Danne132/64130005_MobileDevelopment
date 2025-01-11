@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,14 +70,19 @@ public class NewsListFragment extends Fragment {
         new Thread(() -> {
             try {
                 String rssData = RSSUtils.fetchRSS(categoryUrl);
+                if(!rssData.isEmpty()) Log.i("Lấy Rss", "Đã lấy được RSS " + categoryName);
+                else Log.i("Lấy Rss", "Chưa lấy được RSS "+categoryName);
                 List<NewsItem> rssItems = RSSUtils.parseRSS(rssData);
                 HomeFragment.newsList.addAll(rssItems);
-                getActivity().runOnUiThread(() -> {
-                    progressBarNewsList.setVisibility(View.GONE);
-                    NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext(), categoryName);
-                    recyclerView.setAdapter(adapter);
-                });
-                Log.d("RSSFragment", "RSS Data: " + rssData);
+                FragmentActivity activity = getActivity();
+                if(activity!=null){
+                    getActivity().runOnUiThread(() -> {
+                        progressBarNewsList.setVisibility(View.GONE);
+                        NewsListAdapter adapter = new NewsListAdapter(rssItems, getContext(), categoryName);
+                        recyclerView.setAdapter(adapter);
+                    });
+                    Log.d("RSSFragment", "RSS Data: " + rssData);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 getActivity().runOnUiThread(() -> {

@@ -35,8 +35,8 @@ public class RSSUtils {
             URL url = new URL(newsURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setConnectTimeout(5000); // Thời gian chờ kết nối
-            connection.setReadTimeout(5000); // Thời gian chờ đọc dữ liệu
+            connection.setConnectTimeout(10000); // Thời gian chờ kết nối
+            connection.setReadTimeout(10000); // Thời gian chờ đọc dữ liệu
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
@@ -46,6 +46,7 @@ public class RSSUtils {
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();
+            Log.i("Lỗi RSS: ", e.getMessage());
         }
         return result.toString();
     }

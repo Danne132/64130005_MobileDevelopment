@@ -80,6 +80,7 @@
                 android:textColor="#666C8E"
                 android:text="Notifications"/>
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchNotification"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"

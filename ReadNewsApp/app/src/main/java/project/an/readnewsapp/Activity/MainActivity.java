@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String CHANNEL_ID = "CHANNEL_1";
     ImageView homeNav, categoriesNav, bookmarkNav, profileNav;
+    LinearLayout homeNavLayout, categoriesNavLayout, bookmarkNavLayout, profileNavLayout;
     DatabaseHelper databaseHelper;
 
     private void getControl(){
@@ -48,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
         categoriesNav = findViewById(R.id.categoriesNav);
         bookmarkNav = findViewById(R.id.bookmarkNav);
         profileNav = findViewById(R.id.profileNav);
+        homeNavLayout = findViewById(R.id.homeNavLayout);
+        categoriesNavLayout = findViewById(R.id.categoriesNavLayout);
+        bookmarkNavLayout = findViewById(R.id.bookmarkNavLayout);
+        profileNavLayout = findViewById(R.id.profileNavLayout);
         databaseHelper = DatabaseHelper.getInstance(this);
     }
 
@@ -59,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
         getControl();
         homeNav.setImageResource(R.drawable.icon_nav_home_choose);
         replaceFragment(new HomeFragment());
-        homeNav.setOnClickListener(homeClick);
-        categoriesNav.setOnClickListener(categoriesClick);
-        bookmarkNav.setOnClickListener(bookmarkClick);
-        profileNav.setOnClickListener(profileClick);
+        homeNavLayout.setOnClickListener(homeClick);
+        categoriesNavLayout.setOnClickListener(categoriesClick);
+        bookmarkNavLayout.setOnClickListener(bookmarkClick);
+        profileNavLayout.setOnClickListener(profileClick);
         sendNotification();
         PeriodicWorkRequest notificationWork =
                 new PeriodicWorkRequest.Builder(NewsCheckWorker.class, 15, TimeUnit.MINUTES)
@@ -150,8 +156,5 @@ public class MainActivity extends AppCompatActivity {
 
         notificationManager.notify(1, builder.build());
     }
-
-
-
 
 }

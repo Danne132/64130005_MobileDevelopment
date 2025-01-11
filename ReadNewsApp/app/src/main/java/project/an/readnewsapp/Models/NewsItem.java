@@ -62,13 +62,6 @@ public class NewsItem {
         this.imgUrl = imgUrl;
     }
 
-//    public String getContent() {
-//        return content;
-//    }
-//
-//    public void setContent(String content) {
-//        this.content = content;
-//    }
 
     public String getPupDate() {
         return pupDate;
@@ -85,14 +78,6 @@ public class NewsItem {
     public void setLink(String link) {
         this.link = link;
     }
-
-//    public String getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
 
     public boolean isSave() {
         return isSave;

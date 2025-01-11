@@ -52,6 +52,9 @@ public class CategoriesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getControl(view);
         AICategoryChoose.setOnClickListener(aiClick);
+        SoftwareCategoryChoose.setOnClickListener(softClick);
+        TechCategoryChoose.setOnClickListener(techClick);
+        SecurityCategoryChoose.setOnClickListener(secClick);
     }
 
     @Override
@@ -64,20 +67,42 @@ public class CategoriesFragment extends Fragment {
     View.OnClickListener aiClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            HomeFragment homeFragment = new HomeFragment();
-
-            // Truyền thông tin tab thứ 2 qua Bundle
-            Bundle bundle = new Bundle();
-            bundle.putInt("selectedTab", 1); // Tab thứ 2 (vị trí index = 1)
-            homeFragment.setArguments(bundle);
-
-            // Chuyển sang HomeFragment
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.frameLayout, homeFragment) // Thay R.id.fragmentContainer bằng ID container thực tế
-                    .addToBackStack(null) // Thêm vào back stack để quay lại nếu cần
-                    .commit();
+            selectCate(1);
         }
     };
 
+    View.OnClickListener softClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            selectCate(2);
+        }
+    };
+    View.OnClickListener techClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            selectCate(3);
+        }
+    };
+    View.OnClickListener secClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            selectCate(4);
+        }
+    };
+
+    private void selectCate(int selectedTab){
+        HomeFragment homeFragment = new HomeFragment();
+
+        // Truyền thông tin tab thứ 2 qua Bundle
+        Bundle bundle = new Bundle();
+        bundle.putInt("selectedTab", selectedTab); // Tab thứ 2 (vị trí index = 1)
+        homeFragment.setArguments(bundle);
+
+        // Chuyển sang HomeFragment
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.frameLayout, homeFragment) // Thay R.id.fragmentContainer bằng ID container thực tế
+                .addToBackStack(null) // Thêm vào back stack để quay lại nếu cần
+                .commit();
+    }
 }

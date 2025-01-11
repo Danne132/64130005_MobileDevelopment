@@ -26,30 +26,50 @@
             android:paddingBottom="70dp"
             android:paddingTop="20dp"
             android:background="@drawable/border_bottom">
-            <ImageView
-                android:id="@+id/homeNav"
+            <LinearLayout
+                android:id="@+id/homeNavLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_nav_home"
-                android:layout_marginHorizontal="30dp"/>
-            <ImageView
-                android:id="@+id/categoriesNav"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/homeNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_nav_home"
+                    android:layout_marginHorizontal="30dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/categoriesNavLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_nav_categories"
-                android:layout_marginHorizontal="30dp"/>
-            <ImageView
-                android:id="@+id/bookmarkNav"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/categoriesNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_nav_categories"
+                    android:layout_marginHorizontal="30dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bookmarkNavLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_bookmark"
-                android:layout_marginHorizontal="30dp"/>
-            <ImageView
-                android:id="@+id/profileNav"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/bookmarkNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_bookmark"
+                    android:layout_marginHorizontal="30dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/profileNavLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_nav_profile"
-                android:layout_marginHorizontal="30dp"/>
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/profileNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_nav_profile"
+                    android:layout_marginHorizontal="30dp"/>
+            </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
