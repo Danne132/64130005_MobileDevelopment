@@ -7,7 +7,12 @@
 * **💻 Falcuty**      : Information Technology
 ### Contact:
 * [D AN Hoàng](https://www.facebook.com/hoangduyan2004)
-## Dự án cuối khóa: App tổng hợp tin tức từ RSS
+## Dự án cuối khóa: App tổn
+
+https://github.com/user-attachments/assets/8909bc0a-bcfa-4e41-8c9b-6ff204fd8c8f
+
+g hợp tin tức từ RSS
+
 |Giao diện mở đầu|Giao diện giới thiệu|
 |:---------------|:-------------------|
 |![modau](https://github.com/user-attachments/assets/62f85864-1e4a-418b-b375-1b7bbb71ed31)|![gioithieu](https://github.com/user-attachments/assets/6cdd8580-4a6d-4ece-8393-3d41fa1c804f)|
